@@ -1,4 +1,7 @@
-# React + TypeScript + Vite with swc
+# KUIT3_Hackathon_Team5-Web
+KUIT 3기 해커톤 5조 웹
+
+## React + TypeScript + Vite with swc
 - `npm run dev` 이후 localhost 주소 접속
 
 
