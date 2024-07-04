@@ -28,6 +28,7 @@ function App() {
 					Edit <code>src/App.tsx</code> and save to test HMR
 				</p>
 			</div>
+			<div className="text-3xl font-bold underline">it goes Work!!</div>
 			<p className="read-the-docs">Click on the Vite and R eact logos to learn more</p>
 		</>
 	);
