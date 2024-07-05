@@ -42,7 +42,7 @@ function App() {
 		{ path: "/", element: <Test /> },
 		{ path: "/Home", element: <HomePage /> },
 	];
-	const router = createBrowserRouter(routes, { basename: import.meta.env.DEV ? "/" : "/KUIT3_Hackathon_Team5-Web/" });
+	const router = createBrowserRouter(routes, { basename: "/KUIT3_Hackathon_Team5-Web/" });
 
 	return (
 		<>
