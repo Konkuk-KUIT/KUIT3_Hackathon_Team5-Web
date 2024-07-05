@@ -35,7 +35,7 @@ const Layout = () => (
 function App() {
 	const routes = [
 		{
-			execPath: "/",
+			path: "/",
 			element: (
 				<>
 					<Layout />
@@ -53,6 +53,7 @@ function App() {
 				{ path: "/option/management/profile", element: <ProfileEditPage /> },
 				{ path: "/option/notice", element: <NoticePage /> },
 				{ path: "/login", element: <LoginPage /> },
+				{ path: "/*", element: <HomePage /> },
 			],
 		},
 	];

@@ -3,6 +3,7 @@ import { Button } from "@/styles/Button";
 import styled from "styled-components";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const HomeContainer = styled.div`
 	display: flex;
@@ -163,51 +164,37 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 	);
 }
 
-export default function HomePage() {
-	const sampleRes: ResponseData = {
-		code: "string",
-		message: "string",
-		data: [
-			{
-				id: 1,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 2,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 3,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-		],
-	};
+const fetchUserHabits = async (userId: int) => {
+	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/users/${userId}/habbits/`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 
-	const { data } = sampleRes;
+	const data = await response.json();
+	//console.log("User habits:", data);
+	return data;
+};
+
+export default function HomePage() {
+	const [habits, setHabits] = useState<Habit[]>([]); // Initialize state for habits
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await fetchUserHabits(1); // Assuming "1" is the user ID
+				const { data } = res;
+				//console.log(data);
+				setHabits(data.habits); // Update state with fetched data
+			} catch (error) {
+				console.error("Error fetching habits:", error);
+				// Handle errors as needed
+			}
+		};
+
+		fetchData(); // Call the async function to fetch data when the component mounts
+	}, []); // Empty dependency array means this effect runs only once after the initial render
 
 	return (
 		<HomeContainer>
@@ -222,8 +209,8 @@ export default function HomePage() {
 					<div>새 목표 만들기</div>
 				</Button>
 			</Link>
-			{data ? (
-				data.map((habit) => {
+			{habits ? (
+				habits.map((habit: Habit) => {
 					return <HabitComponent key={habit.id} habitData={habit} />;
 				})
 			) : (
