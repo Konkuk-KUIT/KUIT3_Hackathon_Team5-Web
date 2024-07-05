@@ -80,8 +80,7 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 				setHearts((prevHearts) => prevHearts.filter((id) => id !== newHeartId)); // 애니메이션 제거
 			}, 1000); // 애니메이션 지속 시간과 일치
 
-			//console.log(JSON.stringify({ habitId: habitData.habitId, likes: likes + 1 }));
-			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like`, {
+			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like?habitId=${habitData.habitId}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
