@@ -3,6 +3,7 @@ import { Button } from "@/styles/Button";
 import styled from "styled-components";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export const HomeContainer = styled.div`
 	display: flex;
@@ -97,22 +98,18 @@ export const StickerImg = styled.img`
 `;
 
 interface Habit {
-	id: number;
+	userId: number;
+	userNickname?: string;
 	likes: number;
-	name: string;
+	habitName: string;
 	progress: number;
-	sticker_img: string;
-	background_color: string;
-	start_date: string;
-	end_date: string;
-	checks: string[];
+	stickerImg: string;
+	backgroundColor: string;
+	startDate: string;
+	endDate: string;
+	checkedDates: string[];
 	memo: string;
-}
-
-interface ResponseData {
-	code: string;
-	message: string;
-	data: Habit[];
+	habitId?: number;
 }
 
 interface HabitComponentProps {
@@ -126,19 +123,20 @@ function generateDateRange(startDate: string, endDate: string) {
 }
 
 function HabitComponent({ habitData }: HabitComponentProps) {
-	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
-	const checksSet = new Set(habitData.checks.map((check: string) => format(parseISO(check), "MM/dd")));
+	console.log(habitData?.startDate, habitData?.endDate);
+	const dateRange = generateDateRange(habitData?.startDate, habitData?.endDate);
+	const checksSet = new Set(habitData.checkedDates?.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	const navigate = useNavigate();
 	const handleClick = () => {
-		navigate(`/habitDetail/${habitData.id}`, { state: { habitData } });
+		navigate(`/habitDetail/${habitData.userId}`, { state: { habitData } });
 	};
 
 	return (
 		<HabitContnents onClick={handleClick}>
 			<HabitTitleDiv>
-				<div>{habitData.name}</div>
-				<HabitSuccessRate style={{ backgroundColor: `${habitData.background_color}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
+				<div>{habitData.userNickname}</div>
+				<HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
 			</HabitTitleDiv>
 			<HabitDateReviewDiv>
 				<HabitDateDiv>
@@ -149,9 +147,9 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 
 							return (
 								<>
-									<DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.background_color}` }}>
+									<DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.backgroundColor}` }}>
 										{formattedDate}
-										{isChecked && <StickerImg src={habitData.sticker_img} alt="Sticker" />}
+										{isChecked && <StickerImg src={habitData.stickerImg} alt="Sticker" />}
 									</DateDiv>
 								</>
 							);
@@ -163,51 +161,36 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 	);
 }
 
-export default function HomePage() {
-	const sampleRes: ResponseData = {
-		code: "string",
-		message: "string",
-		data: [
-			{
-				id: 1,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 2,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 3,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-		],
-	};
+const fetchUserHabits = async (userId: string) => {
+	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/users/${userId}/habbits/`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 
-	const { data } = sampleRes;
+	const data = await response.json();
+	//console.log("User habits:", data);
+	return data;
+};
+
+export default function HomePage() {
+	const [habits, setHabits] = useState<Habit[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await fetchUserHabits("1");
+				const { data } = res;
+				console.log(data.habits);
+				setHabits(data?.habits);
+			} catch (error) {
+				console.error("Error fetching habits:", error);
+			}
+		};
+
+		fetchData();
+	}, []);
 
 	return (
 		<HomeContainer>
@@ -222,9 +205,9 @@ export default function HomePage() {
 					<div>새 목표 만들기</div>
 				</Button>
 			</Link>
-			{data ? (
-				data.map((habit) => {
-					return <HabitComponent key={habit.id} habitData={habit} />;
+			{habits ? (
+				habits?.map((habit: Habit, id) => {
+					return <HabitComponent key={id} habitData={habit} />;
 				})
 			) : (
 				<div>목표를 새로 만들어 주세요오오오....</div>
