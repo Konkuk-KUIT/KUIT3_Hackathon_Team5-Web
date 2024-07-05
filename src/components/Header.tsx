@@ -51,9 +51,8 @@ const WaveAnimation = styled.div`
 
 const TitleP = styled.p`
 	font-family: "BMJUA";
-	font-size: 2.5em;
+	font-size: 2em;
 	font-weight: bold;
-	letter-spacing: 0.1em;
 	color: #5d3db5c5;
 	cursor: default;
 `;
@@ -61,8 +60,8 @@ const TitleP = styled.p`
 export default function Header() {
 	const typingElementRef1 = useRef<HTMLParagraphElement>(null);
 	const typingElementRef2 = useRef<HTMLParagraphElement>(null);
-	const introContent1 = "Our Summer VACIT (feat. KUIT)";
-	const introContent2 = "우리들의 여름 방학습관";
+	const introContent1 = "Our Summer VACIT";
+	const introContent2 = "우리들의 여름 방학 습관";
 	const intervalRef1 = useRef<NodeJS.Timeout | null>(null);
 	const intervalRef2 = useRef<NodeJS.Timeout | null>(null);
 	const idxRef1 = useRef<number>(0);
