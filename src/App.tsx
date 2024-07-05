@@ -1,5 +1,5 @@
 import "./App.css";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
@@ -10,26 +10,54 @@ import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
 import NoticePage from "./pages/NoticePage/NoticePage";
 
 
+import AddHabit from "./pages/AddHabit/addHabit";
+import MyProgress from "./pages/MyProgress/myProgress";
+
+import BottomNavBar from "./components/BottomNavBar";
+import Header from "./components/Header";
+import styled from "styled-components";
+
+const WrapperDiv = styled.div`
+	margin-top: 230px;
+	margin-bottom: 100px;
+`;
+
+const Layout = () => (
+	<>
+		<Header />
+		<WrapperDiv>
+			<Outlet />
+		</WrapperDiv>
+		<BottomNavBar />
+	</>
+);
+
 function App() {
 	const routes = [
-		{ path: "/", element: <HomePage /> },
-		{ path: "/habitDetail", element: <HabitDetailPage /> },
-		{ path: "/feed", element: <FeedPage /> },
-		{ path: "/addHabit" },
-		{ path: "myprogress" },
-		{ path: "/store", element: <StorePage /> },
-		{ path: "/option", element: <OptionPage /> },
-		{ path: "/option/management", element: <ManagementPage /> },
-		{ path: "/option/management/profile", element: <ProfileEditPage /> },
-		{ path: "/option/notice", element: <NoticePage /> },
+		{
+			path: "/",
+			element: (
+				<>
+					<Layout />
+				</>
+			),
+			children: [
+				{ path: "/", element: <HomePage /> },
+				{ path: "/habitDetail", element: <HabitDetailPage /> },
+				{ path: "/feed", element: <FeedPage /> },
+				{ path: "/addHabit", element: <AddHabit /> },
+				{ path: "/myProgress", element: <MyProgress /> },
+				{ path: "/store", element: <StorePage /> },
+				{ path: "/option", element: <OptionPage /> },
+				{ path: "/option/management", element: <ManagementPage /> },
+				{ path: "/option/management/profile", element: <ProfileEditPage /> },
+				{ path: "/option/notice", element: <NoticePage /> },
+			],
+		},
 	];
 	const router = createBrowserRouter(routes, { basename: "/KUIT3_Hackathon_Team5-Web/" });
 
-	return (
-		<>
-			<RouterProvider router={router} />
-		</>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;
