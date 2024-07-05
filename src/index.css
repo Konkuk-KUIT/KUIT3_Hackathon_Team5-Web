@@ -11,11 +11,12 @@
 
 * {
   font-family: 'Pretendard-Regular';
+  box-sizing: border-box;
 }
 
-/* #root {
-  padding: 0px;
-} */
+#root {
+  padding: 0px
+}
 
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;

@@ -4,9 +4,18 @@ import HomePage from "./pages/HomePage";
 import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import BottomNavBar from "./components/BottomNavBar";
+import Header from "./components/Header";
+import styled from "styled-components";
+
+// const WrapperDiv = styled.div`
+// 	height: auto;
+// 	min-height: 100%;
+// 	padding-bottom: 100px;
+// `;
 
 const Layout = () => (
 	<>
+		<Header />
 		<Outlet />
 		<BottomNavBar />
 	</>

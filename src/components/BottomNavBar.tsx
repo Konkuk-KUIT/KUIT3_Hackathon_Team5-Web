@@ -10,9 +10,12 @@ const BottomNavBarDiv = styled.div`
 	background: #fff;
 	box-shadow: 0px -8px 16px 0px rgba(0, 0, 0, 0.1);
 	width: 100%;
-	position: absolute;
+	/* position: absolute; */
 	left: 0;
 	bottom: 0;
+	height: 100px;
+	position: sticky;
+	//transform: translateY(-100%);
 `;
 
 const BtnsDiv = styled.div`
@@ -26,6 +29,7 @@ const BtnsDiv = styled.div`
 const BtnDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 
 export default function BottomNavBar() {
