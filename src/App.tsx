@@ -37,13 +37,13 @@ function App() {
 			),
 			children: [
       { path: "/", element: <HomePage /> },
-	  { path: "/login", element: <LoginPage /> },
       { path: "/habitDetail", element: <HabitDetailPage /> },
       { path: "/feed", element: <FeedPage /> },
       { path: "/addHabit", element: <AddHabit />}, 
       { path: "/myProgress", element: <MyProgress />},
       { path: "/store" },
       { path: "/option" },
+      { path: "/login", element: <LoginPage /> },
         ],
 		},
 
