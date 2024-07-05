@@ -20,7 +20,6 @@ const FeedTitleDiv = styled.div`
 
 const FeedNickNameDiv = styled.div`
 	display: flex;
-	width: 128px;
 	height: 25px;
 	padding: 12px 16px;
 	flex-direction: column;
@@ -81,12 +80,12 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 				setHearts((prevHearts) => prevHearts.filter((id) => id !== newHeartId)); // 애니메이션 제거
 			}, 1000); // 애니메이션 지속 시간과 일치
 
-			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like`, {
+			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like?habitId=${habitData.habitId}`, {
 				method: "PATCH",
 				headers: {
 					"Content-Type": "application/json",
 				},
-				body: JSON.stringify({ habitId: habitData.habitId, likes: likes }),
+				body: JSON.stringify({ habitId: habitData.habitId }),
 			});
 
 			if (!response.ok) {
@@ -159,7 +158,7 @@ export default function FeedPage() {
 				const res = await fetchUserHabits();
 				const { data } = res;
 				//console.log(data.habits);
-				setHabits(data?.habits);
+				setHabits(data?.feeds);
 			} catch (error) {
 				console.error("Error fetching habits:", error);
 			}
@@ -168,55 +167,55 @@ export default function FeedPage() {
 		fetchData();
 	}, []);
 
-	const sampleRes = {
-		code: "string",
-		message: "string",
-		data: [
-			{
-				userId: 1,
-				userNickname: "User1",
-				likes: 10,
-				habitName: "Habit 1 목표이름",
-				progress: 0.75,
-				stickerImg: "https://via.placeholder.com/25",
-				backgroundColor: "#ffcc00",
-				startDate: "2023-06-01",
-				endDate: "2023-06-15",
-				checkedDates: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-				habitId: 1,
-			},
-			{
-				userId: 2,
-				userNickname: "User2",
-				likes: 12,
-				habitName: "Habit 2 목표이름",
-				progress: 0.85,
-				stickerImg: "https://via.placeholder.com/25",
-				backgroundColor: "#00ccff",
-				startDate: "2023-06-10",
-				endDate: "2023-06-20",
-				checkedDates: ["2023-06-10", "2023-06-12", "2023-06-14"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-				habitId: 2,
-			},
-			{
-				userId: 3,
-				userNickname: "User3",
-				likes: 15,
-				habitName: "Habit 3 목표이름",
-				progress: 0.95,
-				stickerImg: "https://via.placeholder.com/25",
-				backgroundColor: "#cc00ff",
-				startDate: "2023-07-01",
-				endDate: "2023-07-15",
-				checkedDates: ["2023-07-01", "2023-07-03", "2023-07-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-				habitId: 3,
-			},
-		],
-	};
-	const { data } = sampleRes;
+	// const sampleRes = {
+	// 	code: "string",
+	// 	message: "string",
+	// 	data: [
+	// 		{
+	// 			userId: 1,
+	// 			userNickname: "User1",
+	// 			likes: 10,
+	// 			habitName: "Habit 1 목표이름",
+	// 			progress: 0.75,
+	// 			stickerImg: "https://via.placeholder.com/25",
+	// 			backgroundColor: "#ffcc00",
+	// 			startDate: "2023-06-01",
+	// 			endDate: "2023-06-15",
+	// 			checkedDates: ["2023-06-01", "2023-06-03", "2023-06-05"],
+	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
+	// 			habitId: 1,
+	// 		},
+	// 		{
+	// 			userId: 2,
+	// 			userNickname: "User2",
+	// 			likes: 12,
+	// 			habitName: "Habit 2 목표이름",
+	// 			progress: 0.85,
+	// 			stickerImg: "https://via.placeholder.com/25",
+	// 			backgroundColor: "#00ccff",
+	// 			startDate: "2023-06-10",
+	// 			endDate: "2023-06-20",
+	// 			checkedDates: ["2023-06-10", "2023-06-12", "2023-06-14"],
+	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
+	// 			habitId: 2,
+	// 		},
+	// 		{
+	// 			userId: 3,
+	// 			userNickname: "User3",
+	// 			likes: 15,
+	// 			habitName: "Habit 3 목표이름",
+	// 			progress: 0.95,
+	// 			stickerImg: "https://via.placeholder.com/25",
+	// 			backgroundColor: "#cc00ff",
+	// 			startDate: "2023-07-01",
+	// 			endDate: "2023-07-15",
+	// 			checkedDates: ["2023-07-01", "2023-07-03", "2023-07-05"],
+	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
+	// 			habitId: 3,
+	// 		},
+	// 	],
+	// };
+	// const { data } = sampleRes;
 
 	return (
 		<HPS.HomeContainer>

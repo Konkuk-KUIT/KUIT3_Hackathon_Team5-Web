@@ -123,7 +123,7 @@ function generateDateRange(startDate: string, endDate: string) {
 }
 
 function HabitComponent({ habitData }: HabitComponentProps) {
-	console.log(habitData?.startDate, habitData?.endDate);
+	//console.log(habitData?.startDate, habitData?.endDate);
 	const dateRange = generateDateRange(habitData?.startDate, habitData?.endDate);
 	const checksSet = new Set(habitData.checkedDates?.map((check: string) => format(parseISO(check), "MM/dd")));
 
@@ -182,7 +182,7 @@ export default function HomePage() {
 			try {
 				const res = await fetchUserHabits("1");
 				const { data } = res;
-				console.log(data.habits);
+				//console.log(data.habits);
 				setHabits(data?.habits);
 			} catch (error) {
 				console.error("Error fetching habits:", error);
