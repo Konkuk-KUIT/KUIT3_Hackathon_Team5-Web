@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 const Body = styled.div`
@@ -129,7 +129,7 @@ const StorePage = () => {
     }, []);
 
     // 스티커를 4개씩 묶어서 배열로 변환
-    const chunkedStickers = [];
+    const chunkedStickers = [[{ id: 1, image: "/asset/temp.svg" }]];
     for (let i = 0; i < stickers.length; i += 4) {
         chunkedStickers.push(stickers.slice(i, i + 4));
     }

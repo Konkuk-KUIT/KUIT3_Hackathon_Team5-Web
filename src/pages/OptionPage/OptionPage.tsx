@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 
 const Body = styled.div`
@@ -99,40 +98,40 @@ const Manage = styled.button`
 `;
 
 const OptionPage = () => {
-  return (
-    <Body>
-        <Profile>
-            <Div1>
-                <Sticker src="" alt="sticker4" />
-                <UserInfo>
-                    <Name>김성유</Name>
-                    <Phone>+82 10-7470-4007</Phone>
-                </UserInfo>
-            </Div1>
-            <Manage>관리</Manage>
-        </Profile>
+    return (
+        <Body>
+            <Profile>
+                <Div1>
+                    <Sticker src="" alt="sticker4" />
+                    <UserInfo>
+                        <Name>김성유</Name>
+                        <Phone>+82 10-7470-4007</Phone>
+                    </UserInfo>
+                </Div1>
+                <Manage>관리</Manage>
+            </Profile>
 
-        <Notice>
-            <Icon src="" alt="notice" />
-            <Span1>공지사항</Span1>
-        </Notice>
+            <Notice>
+                <Icon src="" alt="notice" />
+                <Span1>공지사항</Span1>
+            </Notice>
 
-        <Goal>
-            <Icon src="" alt="goal" />
-            <Span1>성공 기준 설정</Span1>
-        </Goal>
+            <Goal>
+                <Icon src="" alt="goal" />
+                <Span1>성공 기준 설정</Span1>
+            </Goal>
 
-        <Nickname>
-            <Icon src="" alt="nickname" />
-            <Span1>닉네임 설정</Span1>
-        </Nickname>
+            <Nickname>
+                <Icon src="" alt="nickname" />
+                <Span1>닉네임 설정</Span1>
+            </Nickname>
 
-        <Logout>
-            <Icon src="" alt="logout" />
-            <Span1>로그아웃</Span1>
-        </Logout>
-    </Body>
-  );
+            <Logout>
+                <Icon src="" alt="logout" />
+                <Span1>로그아웃</Span1>
+            </Logout>
+        </Body>
+    );
 };
 
 export default OptionPage;
