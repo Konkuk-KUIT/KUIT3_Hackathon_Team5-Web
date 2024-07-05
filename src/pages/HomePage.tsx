@@ -1,3 +1,11 @@
+import CalenderIcn from "@/assets/HomePage/calender.svg";
+import { Button } from "@/styles/Button";
+
 export default function HomePage() {
-	return <h1>Home 화면입니다아아아아아</h1>;
+	return (
+		<Button>
+			<img src={CalenderIcn} />
+			<div>새 목표 만들기</div>
+		</Button>
+	);
 }
