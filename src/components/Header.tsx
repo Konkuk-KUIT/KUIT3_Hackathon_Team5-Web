@@ -59,7 +59,7 @@ const TitleP = styled.p`
 export default function Header() {
 	const typingElementRef1 = useRef<HTMLParagraphElement>(null);
 	const typingElementRef2 = useRef<HTMLParagraphElement>(null);
-	const introContent1 = "Our Summer VACIT";
+	const introContent1 = "Our Summer VACIT (feat. KUIT)";
 	const introContent2 = "우리들의 여름 방학습관";
 	const intervalRef1 = useRef<NodeJS.Timeout | null>(null);
 	const intervalRef2 = useRef<NodeJS.Timeout | null>(null);

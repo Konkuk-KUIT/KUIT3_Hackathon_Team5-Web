@@ -38,14 +38,14 @@ function App() {
 				</>
 			),
 			children: [
-      { path: "/", element: <HomePage /> },
-      { path: "/habitDetail", element: <HabitDetailPage /> },
-      { path: "/feed", element: <FeedPage /> },
-      { path: "/addHabit", element: <AddHabit />}, 
-      { path: "/myProgress", element: <MyProgress />},
-		  { path: "/store", element: <StorePage /> },
-		  { path: "/option", element: <OptionPage /> },
-        ],
+				{ path: "/", element: <HomePage /> },
+				{ path: "/habitDetail/:id", element: <HabitDetailPage /> },
+				{ path: "/feed", element: <FeedPage /> },
+				{ path: "/addHabit", element: <AddHabit /> },
+				{ path: "/myProgress", element: <MyProgress /> },
+				{ path: "/store", element: <StorePage /> },
+				{ path: "/option", element: <OptionPage /> },
+			],
 		},
 	];
 	const router = createBrowserRouter(routes, { basename: "/KUIT3_Hackathon_Team5-Web/" });

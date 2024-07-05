@@ -2,8 +2,9 @@ import CalenderIcn from "@/assets/HomePage/calender.svg";
 import { Button } from "@/styles/Button";
 import styled from "styled-components";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
+import { Link, useNavigate } from "react-router-dom";
 
-const HomeContainer = styled.div`
+export const HomeContainer = styled.div`
 	display: flex;
 	padding: 0px 30px;
 	flex-direction: column;
@@ -11,7 +12,7 @@ const HomeContainer = styled.div`
 	gap: 30px;
 `;
 
-const HabitContnents = styled.div`
+export const HabitContnents = styled.div`
 	display: flex;
 	height: 180px;
 	padding: 20px 0px;
@@ -22,7 +23,7 @@ const HabitContnents = styled.div`
 	align-self: stretch;
 `;
 
-const HabitTitleDiv = styled.div`
+export const HabitTitleDiv = styled.div`
 	display: flex;
 	height: 35px;
 	justify-content: space-between;
@@ -33,7 +34,7 @@ const HabitTitleDiv = styled.div`
 	border-bottom: 1px solid #000;
 `;
 
-const HabitSuccessRate = styled.div`
+export const HabitSuccessRate = styled.div`
 	display: flex;
 	height: 20px;
 	padding: 12px 16px;
@@ -50,7 +51,7 @@ const HabitSuccessRate = styled.div`
 	letter-spacing: 0.4px;
 `;
 
-const HabitDateReviewDiv = styled.div`
+export const HabitDateReviewDiv = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -60,7 +61,7 @@ const HabitDateReviewDiv = styled.div`
 	border-bottom: 2px solid #000;
 `;
 
-const HabitDateDiv = styled.div`
+export const HabitDateDiv = styled.div`
 	display: flex;
 	align-items: center;
 	align-content: center;
@@ -69,7 +70,7 @@ const HabitDateDiv = styled.div`
 	flex-wrap: wrap;
 `;
 
-const HabitReview = styled.div`
+export const HabitReview = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-self: stretch;
@@ -81,7 +82,7 @@ const HabitReview = styled.div`
 	padding-bottom: 5px;
 `;
 
-const DateDiv = styled.div`
+export const DateDiv = styled.div`
 	display: flex;
 	width: 45px;
 	align-items: center;
@@ -90,7 +91,7 @@ const DateDiv = styled.div`
 	font-size: 14px;
 `;
 
-const StickerImg = styled.img`
+export const StickerImg = styled.img`
 	position: absolute;
 	opacity: 0.8;
 `;
@@ -128,8 +129,13 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
 	const checksSet = new Set(habitData.checks.map((check: string) => format(parseISO(check), "MM/dd")));
 
+	const navigate = useNavigate();
+	const handleClick = () => {
+		navigate(`/habitDetail/${habitData.id}`, { state: { habitData } });
+	};
+
 	return (
-		<HabitContnents>
+		<HabitContnents onClick={handleClick}>
 			<HabitTitleDiv>
 				<div>{habitData.name}</div>
 				<HabitSuccessRate style={{ backgroundColor: `${habitData.background_color}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
@@ -158,7 +164,6 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 }
 
 export default function HomePage() {
-
 	const sampleRes: ResponseData = {
 		code: "string",
 		message: "string",
@@ -206,10 +211,12 @@ export default function HomePage() {
 
 	return (
 		<HomeContainer>
-			<Button>
-				<img src={CalenderIcn} />
-				<div>새 목표 만들기</div>
-			</Button>
+			<Link to="/addHabit" style={{ width: "100%" }}>
+				<Button>
+					<img src={CalenderIcn} alt="CalenderIcn" />
+					<div>새 목표 만들기</div>
+				</Button>
+			</Link>
 			{data ? (
 				data.map((habit) => {
 					return <HabitComponent key={habit.id} habitData={habit} />;

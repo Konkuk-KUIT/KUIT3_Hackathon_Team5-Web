@@ -35,25 +35,25 @@ export default function BottomNavBar() {
 			<BtnsDiv>
 				<Link to="/">
 					<BtnDiv>
-						<img src={HomeBtnImg} width={32} height={32} />
+						<img src={HomeBtnImg} width={32} height={32} alt="HomeBtnImg" />
 						<div>홈</div>
 					</BtnDiv>
 				</Link>
 				<Link to="/feed">
 					<BtnDiv>
-						<img src={FeedBtnImg} width={32} height={32} />
+						<img src={FeedBtnImg} width={32} height={32} alt="FeedBtnImg" />
 						<div>피드</div>
 					</BtnDiv>
 				</Link>
 				<Link to="/store">
 					<BtnDiv>
-						<img src={StoreBtnImg} width={32} height={32} />
+						<img src={StoreBtnImg} width={32} height={32} alt="StoreBtnImg" />
 						<div>상점</div>
 					</BtnDiv>
 				</Link>
 				<Link to="/option">
 					<BtnDiv>
-						<img src={SettingBtnImg} width={32} height={32} />
+						<img src={SettingBtnImg} width={32} height={32} alt="SettingBtnImg" />
 						<div>설정</div>
 					</BtnDiv>
 				</Link>
