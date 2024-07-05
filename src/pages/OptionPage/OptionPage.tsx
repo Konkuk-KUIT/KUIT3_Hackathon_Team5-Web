@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { To, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import NoticeImg from "@/assets/OptionPage/megaphone.svg";
@@ -107,11 +108,86 @@ const Manage = styled.button`
     cursor: pointer;
 `;
 
+const ModalContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+`;
+
+const ModalContent = styled.div`
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const ModalCloseBtn = styled.button`
+    align-self: flex-end;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+`;
+
+const ModalInput = styled.input`
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+`;
+
+const ModalSaveBtn = styled.button`
+    padding: 10px 20px;
+    background-color: #D5CCEE;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+`;
+
 const OptionPage = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [nickname, setNickname] = useState("인절미");
+    const [newNickname, setNewNickname] = useState(nickname);
+    const modalRef = useRef<HTMLDivElement>(null);
+
     const navigate = useNavigate();
 
     const handleNavigate = (path: To) => {
         navigate(path);
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            setModalOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (modalOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [modalOpen]);
+
+    const handleSaveNickname = () => {
+        setNickname(newNickname);
+        setModalOpen(false);
     };
 
     return (
@@ -137,12 +213,26 @@ const OptionPage = () => {
                 <Span1>성공 기준 설정</Span1>
             </Goal>
 
-            <Nickname>
+            <Nickname onClick={() => setModalOpen(true)}>
                 <Icon src={NicknameImg} alt="nickname" />
                 <Span1>닉네임 설정</Span1>
             </Nickname>
 
-            <Logout>
+            {modalOpen && (
+                <ModalContainer>
+                    <ModalContent ref={modalRef}>
+                        <ModalCloseBtn onClick={() => setModalOpen(false)}>×</ModalCloseBtn>
+                        <ModalInput
+                            type="text"
+                            value={newNickname}
+                            onChange={(e) => setNewNickname(e.target.value)}
+                        />
+                        <ModalSaveBtn onClick={handleSaveNickname}>저장</ModalSaveBtn>
+                    </ModalContent>
+                </ModalContainer>
+            )}
+
+            <Logout onClick={() => handleNavigate('/login')}>
                 <Icon src={LogoutImg} alt="logout" />
                 <Span1>로그아웃</Span1>
             </Logout>
