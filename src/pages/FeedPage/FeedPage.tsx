@@ -3,6 +3,7 @@ import { Habit } from "@/components/habit";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
 import styled from "styled-components";
 import HeartIcn from "@/assets/heart.svg";
+import HeartPinkIcn from "@/assets/heart-pink.svg";
 import { useEffect, useState } from "react";
 
 interface HabitComponentProps {
@@ -33,17 +34,18 @@ const HeartContainer = styled.div`
 	display: flex;
 	align-items: center;
 	gap: 4px;
+	user-select: none;
 `;
 
 const HeartAnimation = styled.img`
 	@keyframes heartAnimation {
 		0% {
 			opacity: 1;
-			transform: scale(1) translateY(0);
+			transform: scale(1) translateY(100px);
 		}
 		100% {
 			opacity: 0;
-			transform: scale(2) translateY(-100px);
+			transform: scale(25) translateY(-100px);
 		}
 	}
 
@@ -66,16 +68,17 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	const [likes, setLikes] = useState(habitData.likes);
-	const [showHeart, setShowHeart] = useState(false); // 애니메이션 상태 관리
+	const [hearts, setHearts] = useState<number[]>([]); // 여러 애니메이션 상태 관리
 
 	const handleLikeClick = async () => {
 		try {
 			setLikes(likes + 1); // 하트 수 증가
 
-			setShowHeart(true); // 하트 애니메이션 표시
+			const newHeartId = Date.now();
+			setHearts([...hearts, newHeartId]); // 새로운 애니메이션 추가
 
 			setTimeout(() => {
-				setShowHeart(false); // 하트 애니메이션 숨기기
+				setHearts((prevHearts) => prevHearts.filter((id) => id !== newHeartId)); // 애니메이션 제거
 			}, 1000); // 애니메이션 지속 시간과 일치
 
 			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like`, {
@@ -99,7 +102,9 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 
 	return (
 		<HPS.HabitContnents>
-			{showHeart && <HeartAnimation src={HeartIcn} alt="Heart Animation" />}
+			{hearts.map((heartId) => (
+				<HeartAnimation key={heartId} src={HeartPinkIcn} alt="Heart Animation" />
+			))}
 			<FeedTitleDiv>
 				<FeedNickNameDiv style={{ backgroundColor: `${habitData.backgroundColor}` }}>{habitData.userNickname}의 목표</FeedNickNameDiv>
 				<HeartContainer onClick={handleLikeClick} style={{ cursor: "pointer" }}>
@@ -163,10 +168,60 @@ export default function FeedPage() {
 		fetchData();
 	}, []);
 
+	const sampleRes = {
+		code: "string",
+		message: "string",
+		data: [
+			{
+				userId: 1,
+				userNickname: "User1",
+				likes: 10,
+				habitName: "Habit 1 목표이름",
+				progress: 0.75,
+				stickerImg: "https://via.placeholder.com/25",
+				backgroundColor: "#ffcc00",
+				startDate: "2023-06-01",
+				endDate: "2023-06-15",
+				checkedDates: ["2023-06-01", "2023-06-03", "2023-06-05"],
+				memo: "This is a memo 디자인 너무 못했다 흑흑",
+				habitId: 1,
+			},
+			{
+				userId: 2,
+				userNickname: "User2",
+				likes: 12,
+				habitName: "Habit 2 목표이름",
+				progress: 0.85,
+				stickerImg: "https://via.placeholder.com/25",
+				backgroundColor: "#00ccff",
+				startDate: "2023-06-10",
+				endDate: "2023-06-20",
+				checkedDates: ["2023-06-10", "2023-06-12", "2023-06-14"],
+				memo: "This is a memo 디자인 너무 못했다 흑흑",
+				habitId: 2,
+			},
+			{
+				userId: 3,
+				userNickname: "User3",
+				likes: 15,
+				habitName: "Habit 3 목표이름",
+				progress: 0.95,
+				stickerImg: "https://via.placeholder.com/25",
+				backgroundColor: "#cc00ff",
+				startDate: "2023-07-01",
+				endDate: "2023-07-15",
+				checkedDates: ["2023-07-01", "2023-07-03", "2023-07-05"],
+				memo: "This is a memo 디자인 너무 못했다 흑흑",
+				habitId: 3,
+			},
+		],
+	};
+	const { data } = sampleRes;
+
 	return (
 		<HPS.HomeContainer>
-			{habits ? (
-				habits.map((habits, id) => {
+			{data ? (
+				data.map((habits, id) => {
 					return <FeedComponent key={id} habitData={habits} />;
 				})
 			) : (
