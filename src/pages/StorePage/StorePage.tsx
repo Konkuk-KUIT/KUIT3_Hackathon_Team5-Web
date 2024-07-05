@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import PointImg from "@/assets/StorePage/fire.svg";
+import StickerImg1 from "@/assets/Sticker/sticker1.svg";
+import StickerImg2 from "@/assets/Sticker/sticker2.svg";
+import StickerImg3 from "@/assets/Sticker/sticker3.svg";
+import StickerImg4 from "@/assets/Sticker/sticker4.svg";
 
 const Body = styled.div`
     display: flex;
@@ -194,7 +198,7 @@ const StorePage = () => {
                     <Stickers>
                         {level.map(sticker => (
                             <Sticker>
-                                <StickerImage key={sticker.id} src={sticker.image} alt={`sticker${sticker.id}`} />
+                                <StickerImage key={sticker.id} src={StickerImg1} alt={`sticker${sticker.id}`} />
                                 {sticker.status === "SOLD_OUT" && (
                                     <StickerHover>SOLD OUT</StickerHover>
                                 )}
@@ -208,16 +212,16 @@ const StorePage = () => {
                 <Level>Level 2</Level>
                 <Stickers>
                     <Sticker>
-                        <StickerImage src="" alt="sticker1" />
+                        <StickerImage src={StickerImg1} alt="sticker1" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker2" />
+                        <StickerImage src={StickerImg2} alt="sticker2" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker3" />
+                        <StickerImage src={StickerImg3} alt="sticker3" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker4" />
+                        <StickerImage src={StickerImg4} alt="sticker4" />
                     </Sticker>
                 </Stickers>
             </StickerList>
@@ -226,54 +230,70 @@ const StorePage = () => {
                 <Level>Level 3</Level>
                 <Stickers>
                     <Sticker>
-                        <StickerImage src="" alt="sticker1" />
+                        <StickerImage src={StickerImg1} alt="sticker1" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker2" />
+                        <StickerImage src={StickerImg2} alt="sticker2" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker3" />
+                        <StickerImage src={StickerImg3} alt="sticker3" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker4" />
+                        <StickerImage src={StickerImg4} alt="sticker4" />
                     </Sticker>
                 </Stickers>
             </StickerList>
-
 
             <StickerList>
                 <Level>Level 4</Level>
                 <Stickers>
                     <Sticker>
-                        <StickerImage src="" alt="sticker1" />
+                        <StickerImage src={StickerImg1} alt="sticker1" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker2" />
+                        <StickerImage src={StickerImg2} alt="sticker2" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker3" />
+                        <StickerImage src={StickerImg3} alt="sticker3" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker4" />
+                        <StickerImage src={StickerImg4} alt="sticker4" />
                     </Sticker>
                 </Stickers>
             </StickerList>
-
 
             <StickerList>
                 <Level>Level 5</Level>
                 <Stickers>
                     <Sticker>
-                        <StickerImage src="" alt="sticker1" />
+                        <StickerImage src={StickerImg1} alt="sticker1" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker2" />
+                        <StickerImage src={StickerImg2} alt="sticker2" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker3" />
+                        <StickerImage src={StickerImg3} alt="sticker3" />
                     </Sticker>
                     <Sticker>
-                        <StickerImage src="" alt="sticker4" />
+                        <StickerImage src={StickerImg4} alt="sticker4" />
+                    </Sticker>
+                </Stickers>
+            </StickerList>
+
+            <StickerList>
+                <Level>Level 6</Level>
+                <Stickers>
+                    <Sticker>
+                        <StickerImage src={StickerImg1} alt="sticker1" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src={StickerImg2} alt="sticker2" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src={StickerImg3} alt="sticker3" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src={StickerImg4} alt="sticker4" />
                     </Sticker>
                 </Stickers>
             </StickerList>
