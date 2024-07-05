@@ -10,7 +10,6 @@ const StyledTotal = styled.div`
     flex-direction: column;
     display: flex;
     align-items : center;
-    
 
 `;
 
@@ -26,13 +25,13 @@ const StyledInputBox = styled.div`
     margin-left: 31px
 `;
 
-const StyledBox = styled.div`
-    width: 100px;
-    height: 44px;
+// const StyledBox = styled.div`
+//     width: 100px;
+//     height: 44px;
 
-    background-color: #F8F7F7;
-    border-radius: 8px;
-`;
+//     background-color: #F8F7F7;
+//     border-radius: 8px;
+// `;
 
 const StyledPeriod = styled.div`
     display: flex;
@@ -51,16 +50,16 @@ const StyledMemoBox = styled.div`
 
 `;
 
-const AddButton = styled.div`
-    align-content: center;
-    width: 328px;
-    height: 48px;
-    border-radius: 12px;
-    background: #D5CCEE;
-    gap: 10px;
-    margin-left: 31px;
+// const AddButton = styled.div`
+//     align-content: center;
+//     width: 328px;
+//     height: 48px;
+//     border-radius: 12px;
+//     background: #D5CCEE;
+//     gap: 10px;
+//     margin-left: 31px;
 
-`;
+// `;
 const TextContent = styled.p`
   text-align: center;
   font-size: 17px;
@@ -74,9 +73,9 @@ margin-top: 11px;
 
 `;
 
-const handleClick = () => {
-    console.log(1);
-};
+// const handleClick = () => {
+//     console.log(1);
+// };
 
 
 // function setHabbitName(){
@@ -98,14 +97,14 @@ export default function addHabit() {
             <StyledP>기간</StyledP>
             <StyledPeriod>
                 <input type="date"></input>
-                <img src={arrowImg}></img>
+                <img src={arrowImg} alt="화살표"></img>
                 <input type="date"></input>
 
             </StyledPeriod>
 
 
             <StyledP>스티커 선택</StyledP>
-            <img src={characterImg} className="w-20 h-20"></img>
+            <img src={characterImg} className="w-20 h-20" alt='캐릭터 선택'></img>
 
             <StyledP>배경색 선택</StyledP>
             <input type="color" id="backgroundColorPicker" className="w-20 h-20"></input>
