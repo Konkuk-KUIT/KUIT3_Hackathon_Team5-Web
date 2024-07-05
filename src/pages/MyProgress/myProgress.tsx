@@ -67,7 +67,7 @@ export default function myProgress() {
     const [successNum, setsuccessNum] = useState(0)
 
     useEffect(() => {
-        fetch('http://43.201.218.143:8080/myprogress', {
+        fetch('http://43.201.218.143:8080/users/1/statistics', {
         }).then(res => res.json()).then(res => {
             console.log(1, res);
         });
