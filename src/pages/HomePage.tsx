@@ -198,7 +198,7 @@ export default function HomePage() {
 		<HomeContainer>
 			<Link to="/login" style={{ width: "100%" }}>
 				<Button>
-					<div>로그인하기</div>
+					<div>로그인 페이지</div>
 				</Button>
 			</Link>
 			<Link to="/addHabit" style={{ width: "100%" }}>
@@ -214,6 +214,11 @@ export default function HomePage() {
 			) : (
 				<div>목표를 새로 만들어 주세요오오오....</div>
 			)}
+			<Link to="/myProgress" style={{ width: "100%" }}>
+				<Button>
+					<div>나의 진행률 확인하기</div>
+				</Button>
+			</Link>
 		</HomeContainer>
 	);
 }
