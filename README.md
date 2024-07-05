@@ -1,6 +1,10 @@
 # KUIT3_Hackathon_Team5-Web
 KUIT 3기 해커톤 5조 웹
 
+## 배포 링크 QR
+![image](https://github.com/Konkuk-KUIT/KUIT3_Hackathon_Team5-Web/assets/67897841/7c3b9502-ee8f-47be-b313-7ccf0fd0b59c)
+
+
 ## React + TypeScript + Vite with swc
 - `npm run dev` 이후 localhost 주소 접속
 
@@ -21,3 +25,4 @@ KUIT 3기 해커톤 5조 웹
 src/assets : svg, img 파일 등
 src/components : 공통으로 쓰이는 컴포넌트
 src/pages : 각각 페이지들
+
