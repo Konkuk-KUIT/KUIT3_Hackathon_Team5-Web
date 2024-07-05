@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
 // import React from 'react';
 // import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import DoughnutChart from "./DoughnutChart";
@@ -60,13 +61,22 @@ export default function myProgress() {
         { name: '도전 성공', value: 20, color: '#8E9EE9' },
         { name: '도전 실패', value: 30, color: '#9D80E0' },
     ];
-    const test = 90;
-    const successNum = 11;
+    // const test = 90;
+    // const successNum = 11;
+    const [rate, setRate] = useState(0)
+    const [successNum, setsuccessNum] = useState(0)
+
+    useEffect(() => {
+        fetch('http://43.201.218.143:8080/myprogress', {
+        }).then(res => res.json()).then(res => {
+            console.log(1, res);
+        });
+    }, []);
 
     return (
         <StyledTotal>
             <StyledText1>현재
-                <StyledNum>{test}</StyledNum>
+                <StyledNum>{rate}</StyledNum>
                 % 성공률로
             </StyledText1>
             <StyledText1>습관 형성중이에요!</StyledText1>
