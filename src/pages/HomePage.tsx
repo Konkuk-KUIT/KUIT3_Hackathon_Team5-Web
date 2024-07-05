@@ -5,7 +5,7 @@ import { format, eachDayOfInterval, parseISO } from "date-fns";
 
 const HomeContainer = styled.div`
 	display: flex;
-	padding: 0px 20px;
+	padding: 0px 30px;
 	flex-direction: column;
 	align-items: center;
 	gap: 30px;
@@ -71,7 +71,6 @@ const HabitDateDiv = styled.div`
 
 const HabitReview = styled.div`
 	display: flex;
-	height: 35px;
 	flex-direction: column;
 	align-self: stretch;
 	font-size: 16px;
@@ -79,6 +78,7 @@ const HabitReview = styled.div`
 	font-weight: 500;
 	letter-spacing: 0.4px;
 	align-items: flex-start;
+	padding-bottom: 5px;
 `;
 
 const DateDiv = styled.div`

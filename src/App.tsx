@@ -7,16 +7,17 @@ import BottomNavBar from "./components/BottomNavBar";
 import Header from "./components/Header";
 import styled from "styled-components";
 
-// const WrapperDiv = styled.div`
-// 	height: auto;
-// 	min-height: 100%;
-// 	padding-bottom: 100px;
-// `;
+const WrapperDiv = styled.div`
+	margin-top: 230px;
+	margin-bottom: 100px;
+`;
 
 const Layout = () => (
 	<>
 		<Header />
-		<Outlet />
+		<WrapperDiv>
+			<Outlet />
+		</WrapperDiv>
 		<BottomNavBar />
 	</>
 );
