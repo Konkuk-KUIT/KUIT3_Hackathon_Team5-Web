@@ -112,8 +112,8 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 				</HeartContainer>
 			</FeedTitleDiv>
 			<HPS.HabitTitleDiv>
-				<div>{habitData.userNickname}</div>
-				<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HPS.HabitSuccessRate>
+				<div>{habitData.habitName}</div>
+				<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {Math.round(habitData.progress * 100 * 10) / 10}%</HPS.HabitSuccessRate>
 			</HPS.HabitTitleDiv>
 			<HPS.HabitDateReviewDiv>
 				<HPS.HabitDateDiv>
@@ -166,56 +166,6 @@ export default function FeedPage() {
 
 		fetchData();
 	}, []);
-
-	// const sampleRes = {
-	// 	code: "string",
-	// 	message: "string",
-	// 	data: [
-	// 		{
-	// 			userId: 1,
-	// 			userNickname: "User1",
-	// 			likes: 10,
-	// 			habitName: "Habit 1 목표이름",
-	// 			progress: 0.75,
-	// 			stickerImg: "https://via.placeholder.com/25",
-	// 			backgroundColor: "#ffcc00",
-	// 			startDate: "2023-06-01",
-	// 			endDate: "2023-06-15",
-	// 			checkedDates: ["2023-06-01", "2023-06-03", "2023-06-05"],
-	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
-	// 			habitId: 1,
-	// 		},
-	// 		{
-	// 			userId: 2,
-	// 			userNickname: "User2",
-	// 			likes: 12,
-	// 			habitName: "Habit 2 목표이름",
-	// 			progress: 0.85,
-	// 			stickerImg: "https://via.placeholder.com/25",
-	// 			backgroundColor: "#00ccff",
-	// 			startDate: "2023-06-10",
-	// 			endDate: "2023-06-20",
-	// 			checkedDates: ["2023-06-10", "2023-06-12", "2023-06-14"],
-	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
-	// 			habitId: 2,
-	// 		},
-	// 		{
-	// 			userId: 3,
-	// 			userNickname: "User3",
-	// 			likes: 15,
-	// 			habitName: "Habit 3 목표이름",
-	// 			progress: 0.95,
-	// 			stickerImg: "https://via.placeholder.com/25",
-	// 			backgroundColor: "#cc00ff",
-	// 			startDate: "2023-07-01",
-	// 			endDate: "2023-07-15",
-	// 			checkedDates: ["2023-07-01", "2023-07-03", "2023-07-05"],
-	// 			memo: "This is a memo 디자인 너무 못했다 흑흑",
-	// 			habitId: 3,
-	// 		},
-	// 	],
-	// };
-	// const { data } = sampleRes;
 
 	return (
 		<HPS.HomeContainer>

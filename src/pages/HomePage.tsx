@@ -95,6 +95,8 @@ export const DateDiv = styled.div`
 export const StickerImg = styled.img`
 	position: absolute;
 	opacity: 0.8;
+	width: 25px;
+	height: 25px;
 `;
 
 interface Habit {
@@ -135,8 +137,8 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 	return (
 		<HabitContnents onClick={handleClick}>
 			<HabitTitleDiv>
-				<div>{habitData.userNickname}</div>
-				<HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
+				<div>{habitData.habitName}</div>
+				<HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {Math.round(habitData.progress * 100 * 10) / 10}%</HabitSuccessRate>
 			</HabitTitleDiv>
 			<HabitDateReviewDiv>
 				<HabitDateDiv>
