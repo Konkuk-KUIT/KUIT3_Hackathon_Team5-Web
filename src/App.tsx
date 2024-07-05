@@ -9,7 +9,6 @@ import ManagementPage from "./pages/ManagementPage/ManagementPage";
 import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
 import NoticePage from "./pages/NoticePage/NoticePage";
 
-
 import AddHabit from "./pages/AddHabit/addHabit";
 import MyProgress from "./pages/MyProgress/myProgress";
 
@@ -36,7 +35,7 @@ const Layout = () => (
 function App() {
 	const routes = [
 		{
-			path: "/",
+			execPath: "/",
 			element: (
 				<>
 					<Layout />

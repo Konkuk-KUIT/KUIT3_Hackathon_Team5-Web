@@ -211,6 +211,11 @@ export default function HomePage() {
 
 	return (
 		<HomeContainer>
+			<Link to="/login" style={{ width: "100%" }}>
+				<Button>
+					<div>로그인하기</div>
+				</Button>
+			</Link>
 			<Link to="/addHabit" style={{ width: "100%" }}>
 				<Button>
 					<img src={CalenderIcn} alt="CalenderIcn" />
