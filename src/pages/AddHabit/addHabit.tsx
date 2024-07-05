@@ -26,13 +26,6 @@ const StyledInputBox = styled.div`
 	margin-left: 31px;
 `;
 
-// const StyledBox = styled.div`
-//     width: 100px;
-//     height: 44px;
-
-//     background-color: #F8F7F7;
-//     border-radius: 8px;
-// `;
 
 const StyledPeriod = styled.div`
 	display: flex;
@@ -48,17 +41,6 @@ const StyledMemoBox = styled.div`
 	border-radius: 8px;
 	margin-bottom: 30px;
 `;
-
-// const AddButton = styled.div`
-//     align-content: center;
-//     width: 328px;
-//     height: 48px;
-//     border-radius: 12px;
-//     background: #D5CCEE;
-//     gap: 10px;
-//     margin-left: 31px;
-
-// `;
 
 const TextContent = styled.p`
 	text-align: center;
@@ -100,17 +82,19 @@ const addHabit = () => {
             endDate,
             memo
         });
-        fetch("http://43.201.218.143:8080/addHabit", {
+
+        const url = import.meta.env.VITE_API_BACK_URL;
+        fetch(url + "/habits/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "userId": 1,
-                "name": "dainn",
+                "name": habbitName,
                 "start_date": startDate,
                 "end_date": endDate,
-                "background_color": "#FFFFF",
+                "background_color": "#FFFFFF",
                 "sticker_id": 1,
                 "memo": memo
             }),
