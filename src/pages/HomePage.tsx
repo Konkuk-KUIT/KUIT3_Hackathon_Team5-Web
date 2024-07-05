@@ -125,7 +125,7 @@ function generateDateRange(startDate: string, endDate: string) {
 function HabitComponent({ habitData }: HabitComponentProps) {
 	console.log(habitData?.startDate, habitData?.endDate);
 	const dateRange = generateDateRange(habitData?.startDate, habitData?.endDate);
-	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
+	const checksSet = new Set(habitData.checkedDates?.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	const navigate = useNavigate();
 	const handleClick = () => {
@@ -175,7 +175,7 @@ const fetchUserHabits = async (userId: string) => {
 };
 
 export default function HomePage() {
-	const [habits, setHabits] = useState<Habit[]>([]); 
+	const [habits, setHabits] = useState<Habit[]>([]);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -183,15 +183,14 @@ export default function HomePage() {
 				const res = await fetchUserHabits("1");
 				const { data } = res;
 				console.log(data.habits);
-				setHabits(data?.habits); 
-
+				setHabits(data?.habits);
 			} catch (error) {
 				console.error("Error fetching habits:", error);
 			}
 		};
 
-		fetchData(); 
-	}, []); 
+		fetchData();
+	}, []);
 
 	return (
 		<HomeContainer>

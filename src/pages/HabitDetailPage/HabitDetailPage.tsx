@@ -29,7 +29,7 @@ export default function HabitDetailPage() {
 
 	const [name, setName] = useState(habitData.userNickname);
 	const [memo, setMemo] = useState(habitData.memo);
-	const [checks, setChecks] = useState(new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "yyyy-MM-dd"))));
+	const [checks, setChecks] = useState(new Set(habitData.checkedDates?.map((check: string) => format(parseISO(check), "yyyy-MM-dd"))));
 
 	const dateRange = generateDateRange(habitData.startDate, habitData.endDate);
 

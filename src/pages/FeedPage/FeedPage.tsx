@@ -138,7 +138,7 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 }
 
 const fetchUserHabits = async () => {
-	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/feed/habits/`, {
+	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/feed/habits`, {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -220,8 +220,8 @@ export default function FeedPage() {
 
 	return (
 		<HPS.HomeContainer>
-			{data ? (
-				data.map((habits, id) => {
+			{habits ? (
+				habits.map((habits, id) => {
 					return <FeedComponent key={id} habitData={habits} />;
 				})
 			) : (
