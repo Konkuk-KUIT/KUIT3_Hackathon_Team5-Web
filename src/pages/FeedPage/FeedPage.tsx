@@ -17,6 +17,24 @@ const FeedTitleDiv = styled.div`
 	width: 100%;
 `;
 
+const FeedNickNameDiv = styled.div`
+	display: flex;
+	width: 128px;
+	height: 25px;
+	padding: 12px 16px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	border-radius: 12px;
+`;
+
+const HeartContainer = styled.div`
+	display: flex;
+	align-items: center;
+	gap: 4px;
+`;
+
 function generateDateRange(startDate: string, endDate: string) {
 	const start = parseISO(startDate);
 	const end = parseISO(endDate);
@@ -27,11 +45,39 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 	const dateRange = generateDateRange(habitData.startDate, habitData.endDate);
 	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
 
+	const [likes, setLikes] = useState(habitData.likes);
+
+	const handleLikeClick = async () => {
+		try {
+			setLikes(likes + 1); // 하트 수 증가
+
+			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ habitId: habitData.habitId, likes: likes }),
+			});
+
+			if (!response.ok) {
+				throw new Error("Failed to update likes on the server");
+			}
+
+			const result = await response.json();
+			console.log("Like updated successfully", result);
+		} catch (error) {
+			console.error("Error updating likes:", error);
+		}
+	};
+
 	return (
 		<HPS.HabitContnents>
 			<FeedTitleDiv>
-				<img src={HeartIcn} alt="HeartIcn" />
-				<div>{habitData.likes}</div>
+				<FeedNickNameDiv style={{ backgroundColor: `${habitData.backgroundColor}` }}>{habitData.userNickname}의 목표</FeedNickNameDiv>
+				<HeartContainer onClick={handleLikeClick} style={{ cursor: "pointer" }}>
+					<img src={HeartIcn} alt="HeartIcn" />
+					<div>{likes}</div>
+				</HeartContainer>
 			</FeedTitleDiv>
 			<HPS.HabitTitleDiv>
 				<div>{habitData.userNickname}</div>
