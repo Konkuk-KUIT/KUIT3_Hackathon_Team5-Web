@@ -84,19 +84,20 @@ const addHabit = () => {
         });
 
         const url = import.meta.env.VITE_API_BACK_URL;
-        fetch(url + "/habits/add", {
+
+        fetch("http://43.201.218.143:8080/habits/add", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
                 "userId": 1,
-                "name": habbitName,
-                "start_date": startDate,
-                "end_date": endDate,
-                "background_color": "#FFFFFF",
-                "sticker_id": 1,
-                "memo": memo
+                "name": "string",
+                "startDate": "2024-07-05",
+                "endDate": "2024-07-05",
+                "backgroundColor": "string",
+                "stickerId": 0,
+                "memo": "string"
             }),
         })
             .then((response) => response.json())

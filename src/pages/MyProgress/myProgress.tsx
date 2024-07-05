@@ -78,8 +78,8 @@ const Progress = styled.progress`
   &::-webkit-progress-value {
     background: #C57BED;
     border-radius: 0px;
-    height: 28px;
-    width: 48px;
+    height: 45px;
+    width: 90%;
   }
 `;
 
