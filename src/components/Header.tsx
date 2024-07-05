@@ -54,6 +54,7 @@ const TitleP = styled.p`
 	font-weight: bold;
 	letter-spacing: 0.1em;
 	color: #5d3db5c5;
+	cursor: default;
 `;
 
 export default function Header() {

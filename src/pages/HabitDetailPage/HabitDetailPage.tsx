@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Habit } from "@/components/habit";
 import * as HPS from "@/pages/HomePage";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
@@ -33,7 +33,9 @@ export default function HabitDetailPage() {
 
 	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
 
+	const navigate = useNavigate();
 	const handleClickHabitMod = () => {
+		console.log(JSON.stringify({ ...habitData, name, memo, checks: Array.from(checks) }));
 		// Fetch request로 habitData를 업데이트하는 로직
 		fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/memo`, {
 			method: "PATCH",
@@ -50,6 +52,7 @@ export default function HabitDetailPage() {
 			.catch((error) => {
 				console.error("Error updating habit:", error);
 			});
+		navigate(`/`, { state: { habitData } });
 	};
 
 	const toggleCheck = (date: Date) => {
