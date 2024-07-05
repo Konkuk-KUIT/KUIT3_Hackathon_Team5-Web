@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import React from "react";
+import { Donut } from "react-dial-knob";
+import { To, useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import BackImg from "@/assets/ManagementPage/left_arrow.svg";
 
 const Body = styled.div`
     display: flex;
@@ -21,31 +25,54 @@ const Icon = styled.img`
 `;
 
 const Span1 = styled.span`
-    display: flex;
     font-family: pretendard;
     font-size: 17px;
-    text-align: start;
-`;
-
-const Title = styled.span`
-    font-family: pretendard;
-    font-size: 32px;
 `;
 
 const GoalPage = () => {
+    const [value, setValue] = React.useState(80)
+
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: To) => {
+        navigate(path);
+    };
+
     return (
+
         <Body>
-            <Header>
-                <Icon src="" alt="arrow" />
-                <Span1>목표 설정</Span1>
+            <Header onClick={() => handleNavigate('/option')}>
+                <Icon src={BackImg} alt="arrow" />
+                <Span1>내 정보 관리</Span1>
             </Header>
 
-            <Title>당신의 한계는?!</Title>
-
-
-
+            <Donut
+                diameter={200}
+                min={0}
+                max={100}
+                step={1}
+                value={value}
+                theme={{
+                    donutColor: 'lightcoral'
+                }}
+                style={{
+                    position: 'relative',
+                    margin: '100px auto',
+                    width: '200px'
+                }}
+                onValueChange={setValue}
+                ariaLabelledBy={'my-label'}
+                spaceMaxFromZero={false}
+            >
+                <label id={'my-label'} style={{
+                    textAlign: 'center',
+                    width: '200px',
+                    display: 'block',
+                    padding: '10px 0'
+                }}>딩신의 한계는?</label>
+            </Donut>
         </Body>
-    )
+    );
 }
 
 export default GoalPage
