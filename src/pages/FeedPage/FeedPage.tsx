@@ -35,6 +35,26 @@ const HeartContainer = styled.div`
 	gap: 4px;
 `;
 
+const HeartAnimation = styled.img`
+	@keyframes heartAnimation {
+		0% {
+			opacity: 1;
+			transform: scale(1) translateY(0);
+		}
+		100% {
+			opacity: 0;
+			transform: scale(2) translateY(-100px);
+		}
+	}
+
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	animation: heartAnimation 1s forwards;
+`;
+
 function generateDateRange(startDate: string, endDate: string) {
 	const start = parseISO(startDate);
 	const end = parseISO(endDate);
@@ -46,10 +66,17 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	const [likes, setLikes] = useState(habitData.likes);
+	const [showHeart, setShowHeart] = useState(false); // 애니메이션 상태 관리
 
 	const handleLikeClick = async () => {
 		try {
 			setLikes(likes + 1); // 하트 수 증가
+
+			setShowHeart(true); // 하트 애니메이션 표시
+
+			setTimeout(() => {
+				setShowHeart(false); // 하트 애니메이션 숨기기
+			}, 1000); // 애니메이션 지속 시간과 일치
 
 			const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/like`, {
 				method: "PATCH",
@@ -72,6 +99,7 @@ function FeedComponent({ habitData }: HabitComponentProps) {
 
 	return (
 		<HPS.HabitContnents>
+			{showHeart && <HeartAnimation src={HeartIcn} alt="Heart Animation" />}
 			<FeedTitleDiv>
 				<FeedNickNameDiv style={{ backgroundColor: `${habitData.backgroundColor}` }}>{habitData.userNickname}의 목표</FeedNickNameDiv>
 				<HeartContainer onClick={handleLikeClick} style={{ cursor: "pointer" }}>
