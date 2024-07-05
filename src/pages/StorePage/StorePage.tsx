@@ -67,12 +67,14 @@ const Info3 = styled.div`
 `
 
 const Point = styled.span`
+    font-family: pretendard;
     font-size: 16px;
     color: #6B7684;
 `;
 
 const Level = styled.span`
     display: flex;
+    font-family: pretendard;
     font-size: 17px;
     margin-bottom: 14px;
 `;
@@ -80,9 +82,11 @@ const Level = styled.span`
 const Buy = styled.button`
     width: 52px;
     height: 32px;
+    font-family: pretendard;
+    font-size: 13px;
     border-radius: 12px;
     background: #D5CCEE;
-`
+`;
 
 const PointImg1 = styled.img`
     width: 30px;
@@ -107,24 +111,18 @@ const Sticker = styled.img`
 const StorePage = () => {
 
     const [stickers, setStickers] = useState([]);
-    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchStickers = async () => {
-            try {
-                const response = await fetch('/sticker.json');
-                if (!response.ok) {
-                    throw new Error('네트워크 반응 오류');
-                }
-                const result = await response.json();
-                if (result.code !== 'success') {
-                    throw new Error(result.message);
-                }
-                setStickers(result.data);
-            } catch (error) {
-                setError(error.message);
-                console.error('Fetch 오류:', error);
+            const response = await fetch('/sticker.json');
+            if (!response.ok) {
+                throw new Error('네트워크 반응 오류');
             }
+            const result = await response.json();
+            if (result.code !== 'success') {
+                throw new Error(result.message);
+            }
+            setStickers(result.data);
         };
 
         fetchStickers();
