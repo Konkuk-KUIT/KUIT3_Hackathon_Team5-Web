@@ -1,28 +1,27 @@
 //import React, { useEffect } from "react";
 // import { useParams } from "react-router-dom";
-import styled from 'styled-components';
+import styled from "styled-components";
 import arrowImg from "@/assets/period.svg";
 import characterImg from "@/assets/character.svg";
-import { Button } from '@/styles/Button.tsx';
+import { Button } from "@/styles/Button.tsx";
 
 const StyledTotal = styled.div`
-    width: 100%;
-    flex-direction: column;
-    display: flex;
-    align-items : center;
-
+	width: 100%;
+	flex-direction: column;
+	display: flex;
+	align-items: center;
 `;
 
 const StyledInputBox = styled.div`
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
-    height: 44px;
-    flex-shrink: 0;
-    background-color: #F8F7F7;
-    border-radius: 8px;
-    justify-content: center;
-    margin-left: 31px
+	flex-direction: row;
+	justify-content: center;
+	width: 100%;
+	height: 44px;
+	flex-shrink: 0;
+	background-color: #f8f7f7;
+	border-radius: 8px;
+	justify-content: center;
+	margin-left: 31px;
 `;
 
 // const StyledBox = styled.div`
@@ -34,20 +33,18 @@ const StyledInputBox = styled.div`
 // `;
 
 const StyledPeriod = styled.div`
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
+	display: flex;
+	justify-content: space-between;
+	gap: 20px;
 `;
 
 const StyledMemoBox = styled.div`
-    width: 100%;
-    height: 150px;
-    flex-shrink: 0;
-    background-color: #F8F7F7;
-    border-radius: 8px;
-    margin-bottom: 30px;
-
-
+	width: 100%;
+	height: 150px;
+	flex-shrink: 0;
+	background-color: #f8f7f7;
+	border-radius: 8px;
+	margin-bottom: 30px;
 `;
 
 // const AddButton = styled.div`
@@ -61,22 +58,20 @@ const StyledMemoBox = styled.div`
 
 // `;
 const TextContent = styled.p`
-  text-align: center;
-  font-size: 17px;
-  margin-top: 11px;
-  align-items: 
+	text-align: center;
+	font-size: 17px;
+	margin-top: 11px;
+	align-items: center;
 `;
 
 const StyledP = styled.p`
-font-size: 17px;
-margin-top: 11px;
-
+	font-size: 17px;
+	margin-top: 11px;
 `;
 
 // const handleClick = () => {
 //     console.log(1);
 // };
-
 
 // function setHabbitName(){
 //     console.log(1);
@@ -86,34 +81,35 @@ margin-top: 11px;
 //const [habitName, sethabitName] = useState("");
 
 export default function addHabit() {
-    return (
-        <StyledTotal>
-            <StyledP>
-                습관 이름
-            </StyledP>
-            <StyledInputBox><input type="text" className="bg-customGray w-full h-full text-2xl"></input></StyledInputBox>
-            {/* <StyledInputBox type="text" placeholder="이름을 입력하세요."></StyledInputBox> */}
+	return (
+		<StyledTotal>
+			<StyledP>습관 이름</StyledP>
+			<StyledInputBox>
+				<input type="text" className="bg-customGray w-full h-full text-2xl"></input>
+			</StyledInputBox>
+			{/* <StyledInputBox type="text" placeholder="이름을 입력하세요."></StyledInputBox> */}
 
-            <StyledP>기간</StyledP>
-            <StyledPeriod>
-                <input type="date"></input>
-                <img src={arrowImg} alt="화살표"></img>
-                <input type="date"></input>
+			<StyledP>기간</StyledP>
+			<StyledPeriod>
+				<input type="date"></input>
+				<img src={arrowImg} alt="화살표"></img>
+				<input type="date"></input>
+			</StyledPeriod>
 
-            </StyledPeriod>
+			<StyledP>스티커 선택</StyledP>
+			<img src={characterImg} className="w-20 h-20" alt="캐릭터 선택"></img>
 
+			<StyledP>배경색 선택</StyledP>
+			<input type="color" id="backgroundColorPicker" className="w-20 h-20"></input>
 
-            <StyledP>스티커 선택</StyledP>
-            <img src={characterImg} className="w-20 h-20" alt='캐릭터 선택'></img>
-
-            <StyledP>배경색 선택</StyledP>
-            <input type="color" id="backgroundColorPicker" className="w-20 h-20"></input>
-
-            <StyledP>메모</StyledP>
-            <StyledMemoBox><textarea className="bg-customGray w-full h-full text-xl"></textarea></StyledMemoBox>
-            <Button><TextContent>습관 등록</TextContent></Button>
-            {/* <AddButton onClick={handleClick}><TextContent>습관 등록</TextContent></AddButton> */}
-        </StyledTotal>
-
-    )
+			<StyledP>메모</StyledP>
+			<StyledMemoBox>
+				<textarea className="bg-customGray w-full h-full text-xl"></textarea>
+			</StyledMemoBox>
+			<Button>
+				<TextContent>습관 등록</TextContent>
+			</Button>
+			{/* <AddButton onClick={handleClick}><TextContent>습관 등록</TextContent></AddButton> */}
+		</StyledTotal>
+	);
 }
