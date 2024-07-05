@@ -1,13 +1,7 @@
 import styled from "styled-components";
-// import React from 'react';
-// import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import React, { useEffect, useState } from 'react';
 import DoughnutChart from "./DoughnutChart";
 
-// interface DoughnutChartProps {
-//     data: number[];
-//     labels: string[];
-//     backgroundColors: string[];
-// }
 
 const StyledTotal = styled.div`
 	width: 100%;
@@ -24,20 +18,25 @@ const StyledText1 = styled.div`
 	justify-content: center;
 	flex-shrink: 0;
 	height: 40px;
+    align-items: center;
 `;
 
 const StyledText2 = styled.div`
-	display: flex;
+display: flex;
+flex-direction: row;
+width: 328px;
 
-	width: 328px;
-	height: 30px;
-	flex-direction: column;
-	justify-content: center;
-	flex-shrink: 0;
+justify-content: center;
+flex-shrink: 0;
+align-items: center;
 `;
 
 const StyledTprogress = styled.div`
-	width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin-bottom:20px;
 `;
 
 const Doughnut = styled.div`
@@ -53,32 +52,81 @@ const StyledNum = styled.div`
 	text-align: center;
 `;
 
+const Progress = styled.progress`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom: 17px;
+    appearance: none;
+    width: 100%;
+    height: 60px;
+    padding-top: 17px;
+    padding-left:200px;
+    padding-right:200px;
+    padding-bottom: 17px;
+  
+  &::-webkit-progress-bar {
+    background: #f0f0f0;
+    border-radius: 12px;
+    border: 1px solid #eeeeee;
+    height: 45px;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  
+  &::-webkit-progress-value {
+    background: #C57BED;
+    border-radius: 0px;
+    height: 28px;
+    width: 48px;
+  }
+`;
+
 export default function myProgress() {
-	const data = [
-		{ name: "도전중", value: 10, color: "#782EBF" },
-		{ name: "도전 성공", value: 20, color: "#8E9EE9" },
-		{ name: "도전 실패", value: 30, color: "#9D80E0" },
-	];
-	const test = 90;
+    const data = [
+        { name: '도전중', value: 10, color: '#782EBF' },
+        { name: '도전 성공', value: 20, color: '#8E9EE9' },
+        { name: '도전 실패', value: 30, color: '#9D80E0' },
+    ];
+    // const test = 90;
+    // const successNum = 11;
+    const [rate, setRate] = useState(90)
+    const [successNum, setsuccessNum] = useState(10)
 
-	return (
-		<StyledTotal>
-			<StyledText1>
-				현재
-				<StyledNum>{test}</StyledNum>% 성공률로{" "}
-			</StyledText1>
-			<StyledText1>습관 형성중이에요!</StyledText1>
-			<StyledTprogress>
-				<progress id="progress" value="50" max="100" style={{ width: "50%", height: "30px", appearance: "none" }}>
-					70%
-				</progress>
-			</StyledTprogress>
-			<StyledText2>지금까지</StyledText2>
-			<StyledText2>11개의 습관을 형성했어요!</StyledText2>
+    useEffect(() => {
+        fetch('http://43.201.218.143:8080/users/1/statistics', {
+        }).then(res => res.json()).then(res => {
+            console.log(1, res);
+        });
+    }, []);
 
-			<Doughnut>
-				<DoughnutChart data={data} />
-			</Doughnut>
-		</StyledTotal>
-	);
+    return (
+        <StyledTotal>
+            <StyledText1>현재
+                <StyledNum><p className="text-4xl">{rate}%</p></StyledNum>
+                성공률로
+            </StyledText1>
+            <StyledText1>습관 형성중이에요!</StyledText1>
+            <StyledTprogress>
+
+                <Progress
+                    className="progress"
+                    id="progress"
+                    value="90"
+                    max="100">
+                </Progress>
+
+            </StyledTprogress>
+            <StyledText2>지금까지</StyledText2>
+            <StyledText2><StyledNum><p className="text-4xl">{successNum}</p></StyledNum> 개의</StyledText2>
+            <StyledText2>습관을 형성했어요!</StyledText2>
+
+            <Doughnut>
+                <DoughnutChart data={data} />
+            </Doughnut>
+
+        </StyledTotal>
+    );
 }
+

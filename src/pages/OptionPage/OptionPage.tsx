@@ -1,4 +1,10 @@
+import { useEffect, useRef, useState } from 'react';
+import { To, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import NoticeImg from "@/assets/OptionPage/megaphone.svg";
+import GoalImg from "@/assets/OptionPage/target.svg";
+import NicknameImg from "@/assets/OptionPage/pencil.svg";
+import LogoutImg from "@/assets/OptionPage/logout.svg";
 
 const Body = styled.div`
     display: flex;
@@ -31,6 +37,7 @@ const Notice = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Goal = styled.div`
@@ -39,6 +46,7 @@ const Goal = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Nickname = styled.div`
@@ -47,6 +55,7 @@ const Nickname = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Logout = styled.div`
@@ -55,6 +64,7 @@ const Logout = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `
 
 const Sticker = styled.img`
@@ -95,39 +105,135 @@ const Manage = styled.button`
     font-size: 13px;
     border-radius: 12px;
     background: #D5CCEE;
+    cursor: pointer;
+`;
+
+const ModalContainer = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+`;
+
+const ModalContent = styled.div`
+    width: 300px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const ModalCloseBtn = styled.button`
+    align-self: flex-end;
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 16px;
+`;
+
+const ModalInput = styled.input`
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+`;
+
+const ModalSaveBtn = styled.button`
+    padding: 10px 20px;
+    background-color: #D5CCEE;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
 `;
 
 const OptionPage = () => {
+    const [modalOpen, setModalOpen] = useState(false);
+    const [nickname, setNickname] = useState("인절미");
+    const [newNickname, setNewNickname] = useState(nickname);
+    const modalRef = useRef<HTMLDivElement>(null);
+
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: To) => {
+        navigate(path);
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+            setModalOpen(false);
+        }
+    };
+
+    useEffect(() => {
+        if (modalOpen) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [modalOpen]);
+
+    const handleSaveNickname = () => {
+        setNickname(newNickname);
+        setModalOpen(false);
+    };
+
     return (
         <Body>
             <Profile>
                 <Div1>
-                    <Sticker src="" alt="sticker4" />
+                    <Sticker src="/asset/temp.svg" alt="sticker4" />
                     <UserInfo>
                         <Name>김성유</Name>
                         <Phone>+82 10-7470-4007</Phone>
                     </UserInfo>
                 </Div1>
-                <Manage>관리</Manage>
+                <Manage onClick={() => handleNavigate('/option/management')}>관리</Manage>
             </Profile>
 
-            <Notice>
-                <Icon src="" alt="notice" />
+            <Notice onClick={() => handleNavigate('/option/notice')}>
+                <Icon src={NoticeImg} alt="notice" />
                 <Span1>공지사항</Span1>
             </Notice>
 
-            <Goal>
-                <Icon src="" alt="goal" />
+            <Goal onClick={() => handleNavigate('/option/goal')}>
+                <Icon src={GoalImg} alt="goal" />
                 <Span1>성공 기준 설정</Span1>
             </Goal>
 
-            <Nickname>
-                <Icon src="" alt="nickname" />
+            <Nickname onClick={() => setModalOpen(true)}>
+                <Icon src={NicknameImg} alt="nickname" />
                 <Span1>닉네임 설정</Span1>
             </Nickname>
 
-            <Logout>
-                <Icon src="" alt="logout" />
+            {modalOpen && (
+                <ModalContainer>
+                    <ModalContent ref={modalRef}>
+                        <ModalCloseBtn onClick={() => setModalOpen(false)}>×</ModalCloseBtn>
+                        <ModalInput
+                            type="text"
+                            value={newNickname}
+                            onChange={(e) => setNewNickname(e.target.value)}
+                        />
+                        <ModalSaveBtn onClick={handleSaveNickname}>저장</ModalSaveBtn>
+                    </ModalContent>
+                </ModalContainer>
+            )}
+
+            <Logout onClick={() => handleNavigate('/login')}>
+                <Icon src={LogoutImg} alt="logout" />
                 <Span1>로그아웃</Span1>
             </Logout>
         </Body>

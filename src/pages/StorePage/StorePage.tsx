@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import PointImg from "@/assets/StorePage/fire.svg";
 
 const Body = styled.div`
     display: flex;
@@ -9,8 +10,14 @@ const Body = styled.div`
 
 const Header = styled.div`
     display: flex;
+    width: 390px;
     height: 38px;
     align-items: center;
+    z-index: 3;
+    position: fixed;
+    left: 0;
+	top: 200px;
+    background: #FFFFFF;
 `;
 
 const StickerList = styled.div`
@@ -27,20 +34,47 @@ const Stickers = styled.div`
     justify-content: space-between;
 `;
 
-const Background = styled.div`
+const Sticker = styled.div`
     display: flex;
     width: 80px;
     height: 80px;
     justify-content: center;
     align-items: center;
+    position: relative;
     border-radius: 12px;
     background: #ECECEC;
+`;
+
+const StickerHover = styled.div`
+    display: flex;
+    height: 80px;
+    width: 80px;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.45);
+    color: white;
+    font-family: pretendard;
+    font-size: 16px;
+    border-radius: 12px;
+    position: absolute;
+    left: 0;
+    top: 0;
+`;
+
+const Blank = styled.div`
+    height: 191px;
 `;
 
 const Info = styled.div`
     display: flex;
     height: 191px;
     padding: 20px;
+    background: #FFFFFF;
+    box-shadow: 0px -8px 16px 0px rgba(0, 0, 0, 0.1);
+    position: fixed;
+	left: 0;
+	bottom: 96px;
 `;
 
 const Info1 = styled.div`
@@ -79,6 +113,20 @@ const Level = styled.span`
     margin-bottom: 14px;
 `;
 
+const StickerName = styled.span`
+    display: flex;
+    font-family: pretendard;
+    font-size: 17px;
+    text-align: start;
+`;
+
+const StickerInfo = styled.span`
+    display: flex;
+    font-family: pretendard;
+    font-size: 16px;
+    text-align: start;
+`;
+
 const Buy = styled.button`
     width: 52px;
     height: 32px;
@@ -101,11 +149,11 @@ const PointImg2 = styled.img`
     margin-right: 7px;
 `;
 
-
-const Sticker = styled.img`
+const StickerImage = styled.img`
     width: 60px;
     height: 60px;
     background: #FFFFFF;
+    cursor: pointer;
 `;
 
 const StorePage = () => {
@@ -129,7 +177,7 @@ const StorePage = () => {
     }, []);
 
     // 스티커를 4개씩 묶어서 배열로 변환
-    const chunkedStickers = [[{ id: 1, image: "/asset/temp.svg" }]];
+    const chunkedStickers = [[{ id: 1, image: "/asset/temp.svg", status: "SOLD_OUT" }]];
     for (let i = 0; i < stickers.length; i += 4) {
         chunkedStickers.push(stickers.slice(i, i + 4));
     }
@@ -137,7 +185,7 @@ const StorePage = () => {
     return (
         <Body>
             <Header>
-                <PointImg1 src="" alt="point" /> <Point>{0}</Point>
+                <PointImg1 src={PointImg} alt="point" /> <Point>{0}</Point>
             </Header>
 
             {chunkedStickers.map((level, levelIndex) => (
@@ -145,64 +193,112 @@ const StorePage = () => {
                     <Level>Level {levelIndex + 1}</Level>
                     <Stickers>
                         {level.map(sticker => (
-                            <Background>
-                                <Sticker key={sticker.id} src={sticker.image} alt={`sticker${sticker.id}`} />
-                            </Background>
+                            <Sticker>
+                                <StickerImage key={sticker.id} src={sticker.image} alt={`sticker${sticker.id}`} />
+                                {sticker.status === "SOLD_OUT" && (
+                                    <StickerHover>SOLD OUT</StickerHover>
+                                )}
+                            </Sticker>
                         ))}
                     </Stickers>
                 </StickerList>
             ))}
 
             <StickerList>
-                <Level>Level 1</Level>
+                <Level>Level 2</Level>
                 <Stickers>
-                    <Background>
-                        <Sticker src="" alt="sticker1" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker2" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker3" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker4" />
-                    </Background>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker1" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker2" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker3" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker4" />
+                    </Sticker>
                 </Stickers>
             </StickerList>
 
             <StickerList>
-                <Level>Level 2</Level>
+                <Level>Level 3</Level>
                 <Stickers>
-                    <Background>
-                        <Sticker src="" alt="sticker1" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker2" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker3" />
-                    </Background>
-                    <Background>
-                        <Sticker src="" alt="sticker4" />
-                    </Background>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker1" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker2" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker3" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker4" />
+                    </Sticker>
                 </Stickers>
             </StickerList>
 
+
+            <StickerList>
+                <Level>Level 4</Level>
+                <Stickers>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker1" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker2" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker3" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker4" />
+                    </Sticker>
+                </Stickers>
+            </StickerList>
+
+
+            <StickerList>
+                <Level>Level 5</Level>
+                <Stickers>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker1" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker2" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker3" />
+                    </Sticker>
+                    <Sticker>
+                        <StickerImage src="" alt="sticker4" />
+                    </Sticker>
+                </Stickers>
+            </StickerList>
+
+            <Blank></Blank>
+
             <Info>
                 <Info1>
-                    <Background>
-                        <Sticker src="" alt="sticker4" />
-                    </Background>
+                    <Sticker>
+                        <StickerImage src="/asset/temp.svg" alt="sticker" />
+                    </Sticker>
                     <Info2>
-                        <PointImg2 src="" alt="point" />
+                        <PointImg2 src={PointImg} alt="point" />
                         <Point>1</Point>
                     </Info2>
                     <Buy>구매</Buy>
                 </Info1>
                 <Info3>
-                    <span>열혈 응원가 젤리가이</span>
-                    <p>당신의 열렬한 팬</p>
+                    <StickerName>열혈 응원가 젤리가이</StickerName>
+                    <StickerInfo>
+                        오늘도 힘내서 습관을 달성하는 당신을 위해
+                        머나먼 젤리왕국에서 파견나온 당신의 열혈팬!!
+                        당신이 습관을 하나씩 완수할 때마다
+                        언제나 처음처럼 열렬히 환호해줄거에요!
+                    </StickerInfo>
                 </Info3>
             </Info>
         </Body>
