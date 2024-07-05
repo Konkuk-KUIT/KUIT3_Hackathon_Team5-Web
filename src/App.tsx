@@ -12,6 +12,7 @@ import MyProgress from "./pages/MyProgress/myProgress";
 import BottomNavBar from "./components/BottomNavBar";
 import Header from "./components/Header";
 import styled from "styled-components";
+import LoginPage from "./pages/LoginPage";
 
 const WrapperDiv = styled.div`
 	margin-top: 230px;
@@ -43,8 +44,9 @@ function App() {
       { path: "/feed", element: <FeedPage /> },
       { path: "/addHabit", element: <AddHabit />}, 
       { path: "/myProgress", element: <MyProgress />},
-		  { path: "/store", element: <StorePage /> },
-		  { path: "/option", element: <OptionPage /> },
+      { path: "/store", element: <StorePage /> },
+      { path: "/option", element: <OptionPage /> },
+      { path: "/login", element: <LoginPage /> },
         ],
 		},
 	];
