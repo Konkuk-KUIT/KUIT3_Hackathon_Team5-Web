@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import HomeBtnImg from "@/assets/BottomNavBar/home-btn.svg";
 import FeedBtnImg from "@/assets/BottomNavBar/feed-btn.svg";
