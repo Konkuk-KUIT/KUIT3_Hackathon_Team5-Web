@@ -1,4 +1,8 @@
+import { To, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import BackImg from "@/assets/NoticePage/left_arrow.svg";
+import ExtendImg from "@/assets/NoticePage/up_arrow.svg";
+import ReduceImg from "@/assets/NoticePage/down_arrow.svg";
 
 const Body = styled.div`
     display: flex;
@@ -90,10 +94,16 @@ const Info = styled.span`
 `;
 
 const NoticePage = () => {
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: To) => {
+        navigate(path);
+    };
+
     return (
         <Body>
-            <Header>
-                <Icon src="" alt="arrow" />
+            <Header onClick={() => handleNavigate('/option')}>
+                <Icon src={BackImg} alt="arrow" />
                 <Span1>공지사항</Span1>
             </Header>
 
@@ -102,7 +112,7 @@ const NoticePage = () => {
                     <Date>24-07-06</Date>
                     <Span1>해커톤 프로젝트 완수! 2.0.0 업데이트 안내</Span1>
                 </Title>
-                <Extend src="" alt="arrow" />
+                <Extend src={ExtendImg} alt="arrow" />
             </Notice1>
 
             <Notice2>
@@ -110,7 +120,7 @@ const NoticePage = () => {
                     <Date>24-07-05</Date>
                     <Span1>뜨거운 여름바람과 함께 찾아온 1.0.1 업데이트 안내</Span1>
                 </Title>
-                <Extend src="" alt="arrow" />
+                <Extend src={ExtendImg} alt="arrow" />
             </Notice2>
 
             <Notice1>
@@ -118,7 +128,7 @@ const NoticePage = () => {
                     <Date>24-07-05</Date>
                     <Span1>안드로이드 프로토타입 버전 안내 (v 1.0.0)</Span1>
                 </Title>
-                <Extend src="" alt="arrow" />
+                <Extend src={ReduceImg} alt="arrow" />
             </Notice1>
 
             <Subtitle>

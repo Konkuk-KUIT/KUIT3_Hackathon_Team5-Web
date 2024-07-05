@@ -142,7 +142,7 @@ const OptionPage = () => {
                 <Span1>닉네임 설정</Span1>
             </Nickname>
 
-            <Logout>
+            <Logout onClick={() => handleNavigate('/login')}>
                 <Icon src={LogoutImg} alt="logout" />
                 <Span1>로그아웃</Span1>
             </Logout>

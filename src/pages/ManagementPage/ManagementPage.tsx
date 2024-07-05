@@ -1,5 +1,5 @@
 import { To, useNavigate } from 'react-router-dom';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import BackImg from "@/assets/ManagementPage/left_arrow.svg";
 
 const Body = styled.div`
@@ -98,7 +98,7 @@ const ManagementPage = () => {
                 <Span1>프로필 편집</Span1>
             </Profile>
 
-            <Leave>
+            <Leave onClick={() => handleNavigate('/login')}>
                 <Span1>탈퇴하기</Span1>
             </Leave>
         </Body>
