@@ -143,7 +143,7 @@ const ProfileEditPage = () => {
   const [nameModalOpen, setNameModalOpen] = useState(false);
   const [statusMsgModalOpen, setStatusMsgModalOpen] = useState(false);
   const [name, setName] = useState("김성유");
-  const [statusMsg, setStatusMsg] = useState("seongyou@gmail.com");
+  const [statusMsg, setStatusMsg] = useState("오늘도 힘내자!!");
   const [newName, setNewName] = useState(name);
   const [newStatusMsg, setNewStatusMsg] = useState(statusMsg);
   const nameModalRef = useRef<HTMLDivElement>(null);
