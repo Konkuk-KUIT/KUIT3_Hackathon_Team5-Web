@@ -158,6 +158,7 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 }
 
 export default function HomePage() {
+
 	const sampleRes: ResponseData = {
 		code: "string",
 		message: "string",
