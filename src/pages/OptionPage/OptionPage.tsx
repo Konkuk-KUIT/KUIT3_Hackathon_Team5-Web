@@ -1,4 +1,9 @@
+import { To, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import NoticeImg from "@/assets/OptionPage/megaphone.svg";
+import GoalImg from "@/assets/OptionPage/target.svg";
+import NicknameImg from "@/assets/OptionPage/pencil.svg";
+import LogoutImg from "@/assets/OptionPage/logout.svg";
 
 const Body = styled.div`
     display: flex;
@@ -31,6 +36,7 @@ const Notice = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Goal = styled.div`
@@ -39,6 +45,7 @@ const Goal = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Nickname = styled.div`
@@ -47,6 +54,7 @@ const Nickname = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `;
 
 const Logout = styled.div`
@@ -55,6 +63,7 @@ const Logout = styled.div`
     padding-left: 20px;
     padding-top: 15px;
     padding-bottom: 15px;
+    cursor: pointer;
 `
 
 const Sticker = styled.img`
@@ -95,39 +104,46 @@ const Manage = styled.button`
     font-size: 13px;
     border-radius: 12px;
     background: #D5CCEE;
+    cursor: pointer;
 `;
 
 const OptionPage = () => {
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: To) => {
+        navigate(path);
+    };
+
     return (
         <Body>
             <Profile>
                 <Div1>
-                    <Sticker src="" alt="sticker4" />
+                    <Sticker src="/asset/temp.svg" alt="sticker4" />
                     <UserInfo>
                         <Name>김성유</Name>
                         <Phone>+82 10-7470-4007</Phone>
                     </UserInfo>
                 </Div1>
-                <Manage>관리</Manage>
+                <Manage onClick={() => handleNavigate('/option/management')}>관리</Manage>
             </Profile>
 
-            <Notice>
-                <Icon src="" alt="notice" />
+            <Notice onClick={() => handleNavigate('/option/notice')}>
+                <Icon src={NoticeImg} alt="notice" />
                 <Span1>공지사항</Span1>
             </Notice>
 
-            <Goal>
-                <Icon src="" alt="goal" />
+            <Goal onClick={() => handleNavigate('/option/goal')}>
+                <Icon src={GoalImg} alt="goal" />
                 <Span1>성공 기준 설정</Span1>
             </Goal>
 
             <Nickname>
-                <Icon src="" alt="nickname" />
+                <Icon src={NicknameImg} alt="nickname" />
                 <Span1>닉네임 설정</Span1>
             </Nickname>
 
             <Logout>
-                <Icon src="" alt="logout" />
+                <Icon src={LogoutImg} alt="logout" />
                 <Span1>로그아웃</Span1>
             </Logout>
         </Body>

@@ -8,6 +8,7 @@ import OptionPage from "./pages/OptionPage/OptionPage";
 import ManagementPage from "./pages/ManagementPage/ManagementPage";
 import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
 import NoticePage from "./pages/NoticePage/NoticePage";
+import GoalPage from "./pages/GoalPage/GoalPage";
 
 import AddHabit from "./pages/AddHabit/addHabit";
 import MyProgress from "./pages/MyProgress/myProgress";
@@ -52,6 +53,7 @@ function App() {
 				{ path: "/option/management", element: <ManagementPage /> },
 				{ path: "/option/management/profile", element: <ProfileEditPage /> },
 				{ path: "/option/notice", element: <NoticePage /> },
+				{ path: "/option/goal", element: <GoalPage /> },
 				{ path: "/login", element: <LoginPage /> },
 			],
 		},
