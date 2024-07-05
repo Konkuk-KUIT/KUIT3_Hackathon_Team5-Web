@@ -10,5 +10,5 @@ export interface Habit {
 	endDate: string;
 	checkedDates: string[];
 	memo: string;
-	habitId?: number;
+	habitId: number;
 }

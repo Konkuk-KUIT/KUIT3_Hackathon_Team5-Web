@@ -35,7 +35,7 @@ export default function HabitDetailPage() {
 
 	const navigate = useNavigate();
 	const handleClickHabitMod = () => {
-		console.log(JSON.stringify({ ...habitData, name, memo, checks: Array.from(checks) }));
+		// console.log(JSON.stringify({ ...habitData, name, memo, checks: Array.from(checks) }));
 		// Fetch request로 habitData를 업데이트하는 로직
 		fetch(`${import.meta.env.VITE_API_BACK_URL}/habits/memo`, {
 			method: "PATCH",
@@ -43,7 +43,7 @@ export default function HabitDetailPage() {
 				"Content-Type": "application/json",
 			},
 			credentials: "include",
-			body: JSON.stringify({ ...habitData, name, memo, checks: Array.from(checks) }),
+			body: JSON.stringify({ habitId: habitData.habitId, memo: habitData.memo }),
 		})
 			.then((response) => response.json())
 			.then((data) => {
@@ -85,7 +85,7 @@ export default function HabitDetailPage() {
 								return (
 									<HPS.DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.backgroundColor}`, cursor: "pointer" }} onClick={() => toggleCheck(date)}>
 										{formattedDate}
-										{isChecked && <HPS.StickerImg src={habitData.stickerImg} alt="Sticker" />}
+										{isChecked && <HPS.StickerImg src={habitData.stickerImg} alt="Sticker" width={25} height={25} />}
 									</HPS.DateDiv>
 								);
 							})}
