@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import HomeBtnImg from "@/assets/BottomNavBar/home-btn.svg";
 import FeedBtnImg from "@/assets/BottomNavBar/feed-btn.svg";
@@ -11,7 +10,7 @@ const BottomNavBarDiv = styled.div`
 	background: #fff;
 	box-shadow: 0px -8px 16px 0px rgba(0, 0, 0, 0.1);
 	width: 100%;
-	position: absolute;
+	position: fixed;
 	left: 0;
 	bottom: 0;
 `;
@@ -27,6 +26,7 @@ const BtnsDiv = styled.div`
 const BtnDiv = styled.div`
 	display: flex;
 	flex-direction: column;
+	align-items: center;
 `;
 
 export default function BottomNavBar() {

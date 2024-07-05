@@ -4,10 +4,20 @@ import HomePage from "./pages/HomePage";
 import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import BottomNavBar from "./components/BottomNavBar";
+import Header from "./components/Header";
+import styled from "styled-components";
+
+const WrapperDiv = styled.div`
+	margin-top: 230px;
+	margin-bottom: 100px;
+`;
 
 const Layout = () => (
 	<>
-		<Outlet />
+		<Header />
+		<WrapperDiv>
+			<Outlet />
+		</WrapperDiv>
 		<BottomNavBar />
 	</>
 );
@@ -18,7 +28,7 @@ function App() {
 			path: "/",
 			element: (
 				<>
-					<Layout />,
+					<Layout />
 				</>
 			),
 			children: [
