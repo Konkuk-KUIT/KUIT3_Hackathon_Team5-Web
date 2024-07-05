@@ -1,5 +1,7 @@
 //import React, { useEffect } from "react";
 // import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import arrowImg from "@/assets/period.svg";
 import characterImg from "@/assets/character.svg";
@@ -57,6 +59,7 @@ const StyledMemoBox = styled.div`
 //     margin-left: 31px;
 
 // `;
+
 const TextContent = styled.p`
 	text-align: center;
 	font-size: 17px;
@@ -69,47 +72,89 @@ const StyledP = styled.p`
 	margin-top: 11px;
 `;
 
-// const handleClick = () => {
-//     console.log(1);
-// };
 
-// function setHabbitName(){
-//     console.log(1);
+const addHabit = () => {
+    const [habbitName, setHabbitName] = useState('');
+    const [startDate, setStartDate] = useState('');
+    const [endDate, setEndDate] = useState('');
+    const [memo, setMemo] = useState('');
 
-// }
+    const handleHabbitNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setHabbitName(event.target.value);
+    };
+    const handleStartDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setStartDate(event.target.value);
+    };
+    const handleEndDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setEndDate(event.target.value);
+    };
+    const handleMemoChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setMemo(event.target.value);
+    };
+    const navigate = useNavigate();
+    const handleClick = () => {
+        console.log(1);
+        console.log({
+            habbitName,
+            startDate,
+            endDate,
+            memo
+        });
+        fetch("http://43.201.218.143:8080/addHabit", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                "userId": 1,
+                "name": "dainn",
+                "start_date": startDate,
+                "end_date": endDate,
+                "background_color": "#FFFFF",
+                "sticker_id": 1,
+                "memo": memo
+            }),
+        })
+            .then((response) => response.json())
+            .then((result) => console.log("결과: ", result));
 
-//const [habitName, sethabitName] = useState("");
+        navigate("/");
+    };
 
-export default function addHabit() {
-	return (
-		<StyledTotal>
-			<StyledP>습관 이름</StyledP>
-			<StyledInputBox>
-				<input type="text" className="bg-customGray w-full h-full text-2xl"></input>
-			</StyledInputBox>
-			{/* <StyledInputBox type="text" placeholder="이름을 입력하세요."></StyledInputBox> */}
 
-			<StyledP>기간</StyledP>
-			<StyledPeriod>
-				<input type="date"></input>
-				<img src={arrowImg} alt="화살표"></img>
-				<input type="date"></input>
-			</StyledPeriod>
+    return (
+        <StyledTotal>
+            <StyledP>습관 이름</StyledP>
+            <StyledInputBox>
+                <input name="habbitName" type="text" className="bg-customGray w-full h-full text-2xl" value={habbitName}
+                    onChange={handleHabbitNameChange}
+                ></input>
+            </StyledInputBox>
+            {/* <StyledInputBox type="text" placeholder="이름을 입력하세요."></StyledInputBox> */}
 
-			<StyledP>스티커 선택</StyledP>
-			<img src={characterImg} className="w-20 h-20" alt="캐릭터 선택"></img>
+            <StyledP>기간</StyledP>
+            <StyledPeriod>
+                <input type="date" value={startDate} onChange={handleStartDateChange}></input>
+                <img src={arrowImg} alt="화살표"></img>
+                <input type="date" value={endDate} onChange={handleEndDateChange}></input>
+            </StyledPeriod>
 
-			<StyledP>배경색 선택</StyledP>
-			<input type="color" id="backgroundColorPicker" className="w-20 h-20"></input>
+            <StyledP>스티커 선택</StyledP>
+            <img src={characterImg} className="w-20 h-20" alt="캐릭터 선택"></img>
 
-			<StyledP>메모</StyledP>
-			<StyledMemoBox>
-				<textarea className="bg-customGray w-full h-full text-xl"></textarea>
-			</StyledMemoBox>
-			<Button>
-				<TextContent>습관 등록</TextContent>
-			</Button>
-			{/* <AddButton onClick={handleClick}><TextContent>습관 등록</TextContent></AddButton> */}
-		</StyledTotal>
-	);
+            <StyledP>배경색 선택</StyledP>
+            <input type="color" id="backgroundColorPicker" className="w-20 h-20"></input>
+
+            <StyledP>메모</StyledP>
+            <StyledMemoBox>
+                <textarea className="bg-customGray w-full h-full text-xl" value={memo} onChange={handleMemoChange}></textarea>
+            </StyledMemoBox>
+            <Button onClick={handleClick}>
+                <TextContent>습관 등록</TextContent>
+            </Button>
+            {/* <AddButton onClick={handleClick}><TextContent>습관 등록</TextContent></AddButton> */}
+        </StyledTotal>
+    );
 }
+
+export default addHabit;
