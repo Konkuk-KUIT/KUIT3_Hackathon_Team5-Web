@@ -5,6 +5,10 @@ import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import StorePage from "./pages/StorePage/StorePage";
 import OptionPage from "./pages/OptionPage/OptionPage";
+import ManagementPage from "./pages/ManagementPage/ManagementPage";
+import ProfileEditPage from "./pages/ProfileEditPage/ProfileEditPage";
+import NoticePage from "./pages/NoticePage/NoticePage";
+
 
 import AddHabit from "./pages/AddHabit/addHabit";
 import MyProgress from "./pages/MyProgress/myProgress";
@@ -46,6 +50,9 @@ function App() {
 				{ path: "/myProgress", element: <MyProgress /> },
 				{ path: "/store", element: <StorePage /> },
 				{ path: "/option", element: <OptionPage /> },
+				{ path: "/option/management", element: <ManagementPage /> },
+				{ path: "/option/management/profile", element: <ProfileEditPage /> },
+				{ path: "/option/notice", element: <NoticePage /> },
 				{ path: "/login", element: <LoginPage /> },
 			],
 		},
