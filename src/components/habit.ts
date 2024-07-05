@@ -1,12 +1,14 @@
 export interface Habit {
-	id: number;
+	userId: number;
+	userNickname?: string;
 	likes: number;
-	name: string;
+	habitName: string;
 	progress: number;
-	sticker_img: string;
-	background_color: string;
-	start_date: string;
-	end_date: string;
-	checks: string[];
+	stickerImg: string;
+	backgroundColor: string;
+	startDate: string;
+	endDate: string;
+	checkedDates: string[];
 	memo: string;
+	habitId?: number;
 }

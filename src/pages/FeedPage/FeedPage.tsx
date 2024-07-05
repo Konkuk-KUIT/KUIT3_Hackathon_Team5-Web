@@ -1,10 +1,21 @@
 import * as HPS from "@/pages/HomePage";
 import { Habit } from "@/components/habit";
 import { format, eachDayOfInterval, parseISO } from "date-fns";
+import styled from "styled-components";
+import HeartIcn from "@/assets/heart.svg";
+import { useEffect, useState } from "react";
 
 interface HabitComponentProps {
 	habitData: Habit;
 }
+
+const FeedTitleDiv = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-self: stretch;
+	width: 100%;
+`;
 
 function generateDateRange(startDate: string, endDate: string) {
 	const start = parseISO(startDate);
@@ -13,88 +24,76 @@ function generateDateRange(startDate: string, endDate: string) {
 }
 
 function FeedComponent({ habitData }: HabitComponentProps) {
-	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
-	const checksSet = new Set(habitData.checks.map((check: string) => format(parseISO(check), "MM/dd")));
+	const dateRange = generateDateRange(habitData.startDate, habitData.endDate);
+	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	return (
-		<HPS.HomeContainer>
-			<HPS.HabitContnents>
-				<HPS.HabitTitleDiv>
-					<div>{habitData.name}</div>
-					<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.background_color}` }}>달성률 {habitData.progress * 100}%</HPS.HabitSuccessRate>
-				</HPS.HabitTitleDiv>
-				<HPS.HabitDateReviewDiv>
-					<HPS.HabitDateDiv>
-						{habitData &&
-							dateRange.map((date) => {
-								const formattedDate = format(date, "MM/dd");
-								const isChecked = checksSet.has(formattedDate);
+		<HPS.HabitContnents>
+			<FeedTitleDiv>
+				<img src={HeartIcn} alt="HeartIcn" />
+				<div>{habitData.likes}</div>
+			</FeedTitleDiv>
+			<HPS.HabitTitleDiv>
+				<div>{habitData.userNickname}</div>
+				<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HPS.HabitSuccessRate>
+			</HPS.HabitTitleDiv>
+			<HPS.HabitDateReviewDiv>
+				<HPS.HabitDateDiv>
+					{habitData &&
+						dateRange.map((date) => {
+							const formattedDate = format(date, "MM/dd");
+							const isChecked = checksSet.has(formattedDate);
 
-								return (
-									<HPS.DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.background_color}` }}>
-										{formattedDate}
-										{isChecked && <HPS.StickerImg src={habitData.sticker_img} alt="Sticker" />}
-									</HPS.DateDiv>
-								);
-							})}
-					</HPS.HabitDateDiv>
-					<HPS.HabitReview>한줄평 : {habitData.memo}</HPS.HabitReview>
-				</HPS.HabitDateReviewDiv>
-			</HPS.HabitContnents>
-		</HPS.HomeContainer>
+							return (
+								<HPS.DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.backgroundColor}` }}>
+									{formattedDate}
+									{isChecked && <HPS.StickerImg src={habitData.stickerImg} alt="Sticker" />}
+								</HPS.DateDiv>
+							);
+						})}
+				</HPS.HabitDateDiv>
+				<HPS.HabitReview>한줄평 : {habitData.memo}</HPS.HabitReview>
+			</HPS.HabitDateReviewDiv>
+		</HPS.HabitContnents>
 	);
 }
 
-export default function FeedPage() {
-	const sampleRes = {
-		code: "string",
-		message: "string",
-		data: [
-			{
-				id: 1,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 2,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-			{
-				id: 3,
-				likes: 10,
-				name: "Habit 1 목표이름",
-				progress: 0.75,
-				sticker_img: "https://via.placeholder.com/25",
-				background_color: "#ffcc00",
-				start_date: "2023-06-01",
-				end_date: "2023-06-15",
-				checks: ["2023-06-01", "2023-06-03", "2023-06-05"],
-				memo: "This is a memo 디자인 너무 못했다 흑흑",
-			},
-		],
-	};
+const fetchUserHabits = async () => {
+	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/feed/habits/`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	});
 
-	const { data } = sampleRes;
+	const data = await response.json();
+	//console.log("User habits:", data);
+	return data;
+};
+
+export default function FeedPage() {
+	const [habits, setHabits] = useState<Habit[]>([]);
+
+	useEffect(() => {
+		const fetchData = async () => {
+			try {
+				const res = await fetchUserHabits();
+				const { data } = res;
+				//console.log(data.habits);
+				setHabits(data?.habits);
+			} catch (error) {
+				console.error("Error fetching habits:", error);
+			}
+		};
+
+		fetchData();
+	}, []);
+
 	return (
 		<HPS.HomeContainer>
-			{data ? (
-				data.map((habit: Habit) => {
-					return <FeedComponent key={habit.id} habitData={habit} />;
+			{habits ? (
+				habits.map((habits, id) => {
+					return <FeedComponent key={id} habitData={habits} />;
 				})
 			) : (
 				<div>피드가 없어요오오오....</div>

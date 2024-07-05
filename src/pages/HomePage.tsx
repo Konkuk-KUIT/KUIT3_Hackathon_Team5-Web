@@ -98,22 +98,18 @@ export const StickerImg = styled.img`
 `;
 
 interface Habit {
-	id: number;
+	userId: number;
+	userNickname?: string;
 	likes: number;
-	name: string;
+	habitName: string;
 	progress: number;
-	sticker_img: string;
-	background_color: string;
-	start_date: string;
-	end_date: string;
-	checks: string[];
+	stickerImg: string;
+	backgroundColor: string;
+	startDate: string;
+	endDate: string;
+	checkedDates: string[];
 	memo: string;
-}
-
-interface ResponseData {
-	code: string;
-	message: string;
-	data: Habit[];
+	habitId?: number;
 }
 
 interface HabitComponentProps {
@@ -127,19 +123,20 @@ function generateDateRange(startDate: string, endDate: string) {
 }
 
 function HabitComponent({ habitData }: HabitComponentProps) {
-	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
-	const checksSet = new Set(habitData.checks.map((check: string) => format(parseISO(check), "MM/dd")));
+	console.log(habitData?.startDate, habitData?.endDate);
+	const dateRange = generateDateRange(habitData?.startDate, habitData?.endDate);
+	const checksSet = new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "MM/dd")));
 
 	const navigate = useNavigate();
 	const handleClick = () => {
-		navigate(`/habitDetail/${habitData.id}`, { state: { habitData } });
+		navigate(`/habitDetail/${habitData.userId}`, { state: { habitData } });
 	};
 
 	return (
 		<HabitContnents onClick={handleClick}>
 			<HabitTitleDiv>
-				<div>{habitData.name}</div>
-				<HabitSuccessRate style={{ backgroundColor: `${habitData.background_color}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
+				<div>{habitData.userNickname}</div>
+				<HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HabitSuccessRate>
 			</HabitTitleDiv>
 			<HabitDateReviewDiv>
 				<HabitDateDiv>
@@ -150,9 +147,9 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 
 							return (
 								<>
-									<DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.background_color}` }}>
+									<DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.backgroundColor}` }}>
 										{formattedDate}
-										{isChecked && <StickerImg src={habitData.sticker_img} alt="Sticker" />}
+										{isChecked && <StickerImg src={habitData.stickerImg} alt="Sticker" />}
 									</DateDiv>
 								</>
 							);
@@ -164,7 +161,7 @@ function HabitComponent({ habitData }: HabitComponentProps) {
 	);
 }
 
-const fetchUserHabits = async (userId: int) => {
+const fetchUserHabits = async (userId: string) => {
 	const response = await fetch(`${import.meta.env.VITE_API_BACK_URL}/users/${userId}/habbits/`, {
 		method: "GET",
 		headers: {
@@ -178,23 +175,23 @@ const fetchUserHabits = async (userId: int) => {
 };
 
 export default function HomePage() {
-	const [habits, setHabits] = useState<Habit[]>([]); // Initialize state for habits
+	const [habits, setHabits] = useState<Habit[]>([]); 
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const res = await fetchUserHabits(1); // Assuming "1" is the user ID
+				const res = await fetchUserHabits("1");
 				const { data } = res;
-				//console.log(data);
-				setHabits(data.habits); // Update state with fetched data
+				console.log(data.habits);
+				setHabits(data?.habits); 
+
 			} catch (error) {
 				console.error("Error fetching habits:", error);
-				// Handle errors as needed
 			}
 		};
 
-		fetchData(); // Call the async function to fetch data when the component mounts
-	}, []); // Empty dependency array means this effect runs only once after the initial render
+		fetchData(); 
+	}, []); 
 
 	return (
 		<HomeContainer>
@@ -210,8 +207,8 @@ export default function HomePage() {
 				</Button>
 			</Link>
 			{habits ? (
-				habits.map((habit: Habit) => {
-					return <HabitComponent key={habit.id} habitData={habit} />;
+				habits?.map((habit: Habit, id) => {
+					return <HabitComponent key={id} habitData={habit} />;
 				})
 			) : (
 				<div>목표를 새로 만들어 주세요오오오....</div>

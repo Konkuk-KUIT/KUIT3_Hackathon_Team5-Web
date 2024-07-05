@@ -27,11 +27,11 @@ export default function HabitDetailPage() {
 	const location = useLocation();
 	const { habitData } = location.state as { habitData: Habit };
 
-	const [name, setName] = useState(habitData.name);
+	const [name, setName] = useState(habitData.userNickname);
 	const [memo, setMemo] = useState(habitData.memo);
-	const [checks, setChecks] = useState(new Set(habitData.checks.map((check: string) => format(parseISO(check), "yyyy-MM-dd"))));
+	const [checks, setChecks] = useState(new Set(habitData.checkedDates.map((check: string) => format(parseISO(check), "yyyy-MM-dd"))));
 
-	const dateRange = generateDateRange(habitData.start_date, habitData.end_date);
+	const dateRange = generateDateRange(habitData.startDate, habitData.endDate);
 
 	const navigate = useNavigate();
 	const handleClickHabitMod = () => {
@@ -73,7 +73,7 @@ export default function HabitDetailPage() {
 			<HPS.HabitContnents>
 				<HPS.HabitTitleDiv>
 					<TitleInput type="text" placeholder="제목" value={name} onChange={(e) => setName(e.target.value)} />
-					<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.background_color}` }}>달성률 {habitData.progress * 100}%</HPS.HabitSuccessRate>
+					<HPS.HabitSuccessRate style={{ backgroundColor: `${habitData.backgroundColor}` }}>달성률 {habitData.progress * 100}%</HPS.HabitSuccessRate>
 				</HPS.HabitTitleDiv>
 				<HPS.HabitDateReviewDiv>
 					<HPS.HabitDateDiv>
@@ -83,9 +83,9 @@ export default function HabitDetailPage() {
 								const isChecked = checks.has(format(date, "yyyy-MM-dd"));
 
 								return (
-									<HPS.DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.background_color}`, cursor: "pointer" }} onClick={() => toggleCheck(date)}>
+									<HPS.DateDiv key={formattedDate} style={{ backgroundColor: `${habitData.backgroundColor}`, cursor: "pointer" }} onClick={() => toggleCheck(date)}>
 										{formattedDate}
-										{isChecked && <HPS.StickerImg src={habitData.sticker_img} alt="Sticker" />}
+										{isChecked && <HPS.StickerImg src={habitData.stickerImg} alt="Sticker" />}
 									</HPS.DateDiv>
 								);
 							})}
