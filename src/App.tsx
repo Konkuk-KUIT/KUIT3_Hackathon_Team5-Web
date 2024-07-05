@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import AddHabit from "./pages/AddHabit/addHabit";
+import MyProgress from "./pages/MyProgress/myProgress";
 
 function App() {
 	const routes = [
@@ -11,7 +12,7 @@ function App() {
 		{ path: "/habitDetail", element: <HabitDetailPage /> },
 		{ path: "/feed", element: <FeedPage /> },
 		{ path: "/addHabit", element: <AddHabit />}, 
-		{ path: "myprogress" },
+		{ path: "/myProgress", element: <MyProgress />},
 		{ path: "/store" },
 		{ path: "/option" },
 	];

@@ -1,4 +1,4 @@
-// import React, { useEffect } from "react";
+//import React, { useEffect } from "react";
 // import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import arrowImg from "@/assets/period.svg";
@@ -42,7 +42,6 @@ const StyledMemoBox = styled.div`
     width: 328px;
     height: 150px;
     flex-shrink: 0;
-
     background-color: #F8F7F7;
     border-radius: 8px;
     margin-left: 31px
@@ -56,7 +55,7 @@ const AddButton = styled.div`
     border-radius: 12px;
     background: #D5CCEE;
     gap: 10px;
-    margin-left: 31px
+    margin-left: 31px;
 
 `;
 const TextContent = styled.p`
@@ -66,6 +65,16 @@ const TextContent = styled.p`
   align-items: 
 `;
 
+const handleClick = () => {
+    console.log(1);
+};
+
+// function setHabbitName(){
+//     console.log(1);
+
+// }
+
+//const [habitName, sethabitName] = useState("");
 
 export default function addHabit() {
 	return (
@@ -73,13 +82,18 @@ export default function addHabit() {
         <p className="text-left text-[17px] ">
             습관 이름
         </p>
-        <StyledInputBox></StyledInputBox>
+        <StyledInputBox><input type="text"></input></StyledInputBox>
+        {/* <StyledInputBox type="text" placeholder="이름을 입력하세요."></StyledInputBox> */}
 
         <p className="text-left text-[17px]">기간</p>
         <StyledPeriod>
-        <StyledBox>h</StyledBox>
+        <StyledBox  onClick={handleClick}>
+            <input type="date"></input>
+        </StyledBox>
         <img src={arrowImg}></img>
-        <StyledBox>j</StyledBox>
+        <StyledBox>
+            <input type="date"></input>
+        </StyledBox>
         </StyledPeriod>
 
 
@@ -89,8 +103,8 @@ export default function addHabit() {
         <p className="text-left text-[17px]">배경색 선택</p>
 
         <p className="text-left text-[17px]">메모</p>
-        <StyledMemoBox>memo</StyledMemoBox>
-        <AddButton><TextContent>습관 등록</TextContent></AddButton>
+        <StyledMemoBox><textarea></textarea></StyledMemoBox>
+        <AddButton onClick={handleClick}><TextContent>습관 등록</TextContent></AddButton>
     </StyledTotal>
 
     ) 
