@@ -4,6 +4,7 @@ import HomePage from "./pages/HomePage";
 import HabitDetailPage from "./pages/HabitDetailPage/HabitDetailPage";
 import FeedPage from "./pages/FeedPage/FeedPage";
 import BottomNavBar from "./components/BottomNavBar";
+import LoginPage from "./pages/LoginPage";
 
 const Layout = () => (
 	<>
@@ -29,6 +30,7 @@ function App() {
 				{ path: "/myprogress" },
 				{ path: "/store" },
 				{ path: "/option" },
+				{ path: "/login", element: <LoginPage /> },
 			],
 		},
 	];
