@@ -95,8 +95,7 @@ const ProfileEditPage = () => {
       </ProfileInfo>
     </Body>
 
+  );
+};
 
-  )
-}
-
-export default ProfileEditPage
+export default ProfileEditPage;

@@ -5,6 +5,7 @@ const EventWrap = styled.div`
 	overflow: hidden;
 	height: 200px;
 	position: fixed;
+	z-index: 9;
 	left: 0;
 	top: 0;
 	width: 100%;

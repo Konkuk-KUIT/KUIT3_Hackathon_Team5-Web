@@ -1,4 +1,6 @@
+import { To, useNavigate } from 'react-router-dom';
 import styled from 'styled-components'
+import BackImg from "@/assets/ManagementPage/left_arrow.svg";
 
 const Body = styled.div`
     display: flex;
@@ -69,10 +71,16 @@ const Span2 = styled.span`
     color: #6B7684;
 `;
 const ManagementPage = () => {
+    const navigate = useNavigate();
+
+    const handleNavigate = (path: To) => {
+        navigate(path);
+    };
+
     return (
         <Body>
-            <Header>
-                <Icon src="" alt="arrow" />
+            <Header onClick={() => handleNavigate('/option')}>
+                <Icon src={BackImg} alt="arrow" />
                 <Span1>내 정보 관리</Span1>
             </Header>
 
@@ -86,7 +94,7 @@ const ManagementPage = () => {
                 <Span2>seongyou@gmail.com</Span2>
             </Email>
 
-            <Profile>
+            <Profile onClick={() => handleNavigate('/option/management/profile')}>
                 <Span1>프로필 편집</Span1>
             </Profile>
 
@@ -94,7 +102,7 @@ const ManagementPage = () => {
                 <Span1>탈퇴하기</Span1>
             </Leave>
         </Body>
-    )
-}
+    );
+};
 
-export default ManagementPage
+export default ManagementPage;
